@@ -1,0 +1,58 @@
+# Project List Structure
+# Each project can have:
+# - title: Project title (string)
+# - slug: Unique identifier for URLs (string, no spaces)
+# - description: Short summary (string)
+# - cover_image: Path to main image (string)
+# - images: List of image/gif paths (list of strings)
+# - video: Path to self-hosted mp4 (string, optional)
+# - tags: List of tech/genre tags (list of strings)
+# - links: Dictionary of external links (object, optional)
+# - model: Optional model path (string, optional)
+
+- title: "Awesome Game pupiah"
+  slug: "awesome-game"
+  description: "A 2D platformer with unique mechanics."
+  longDescription: "This is a longer description for Awesome Game pupiah. It goes into more detail about the gameplay, development process, and unique features."
+  cover_image: "/images/awesome-game/cover.jpg"
+  images:
+    - "/images/awesome-game/screenshot1.png"
+    - "/images/awesome-game/screenshot2.gif"
+  video: "/videos/awesome-game/trailer.mp4"
+  tags: ["Unity", "C#", "Platformer"]
+  links:
+    github: "https://github.com/yourbro/awesome-game"
+    itch: "https://yourbro.itch.io/awesome-game"
+    website: "https://awesomegame.com" 
+  model: "/models/duck.glb"
+
+- title: "Awesome Game 2"
+  slug: "awesome-game2"
+  description: "A 2D platformer with unique mechanics."
+  longDescription: "This is a longer description for Awesome Game 2. It goes into more detail about the gameplay, development process, and unique features."
+  cover_image: "/images/awesome-game/cover.jpg"
+  images:
+    - "/images/awesome-game/screenshot1.png"
+    - "/images/awesome-game/screenshot2.gif"
+  video: "/videos/awesome-game/trailer.mp4"
+  tags: ["Unity", "C#", "Platformer"]
+  links:
+    github: "https://github.com/yourbro/awesome-game"
+    itch: "https://yourbro.itch.io/awesome-game"
+    website: "https://awesomegame.com" 
+  model: sphere
+
+- title: "Awesome Game 3"
+  slug: "awesome-game3"
+  description: "A 2D platformer with unique mechanics."
+  longDescription: "This is a longer description for Awesome Game 3. It goes into more detail about the gameplay, development process, and unique features."
+  cover_image: "/images/awesome-game/cover.jpg"
+  images:
+    - "/images/awesome-game/screenshot1.png"
+    - "/images/awesome-game/screenshot2.gif"
+  video: "/videos/awesome-game/trailer.mp4"
+  tags: ["Unity", "C#", "Platformer"]
+  links:
+    github: "https://github.com/yourbro/awesome-game"
+    itch: "https://yourbro.itch.io/awesome-game"
+    website: "https://awesomegame.com" 
