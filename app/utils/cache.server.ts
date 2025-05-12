@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import {
 	type Cache,
 	cachified as baseCachified,
@@ -10,48 +8,9 @@ import {
 	totalTtl,
 } from '@epic-web/cachified'
 import { remember } from '@epic-web/remember'
-import Database, { type default as BetterSqlite3 } from 'better-sqlite3'
 import { LRUCache } from 'lru-cache'
-import { getRequiredServerEnvVar } from './misc.tsx'
 import { getUser } from './session.server.ts'
 import { time, type Timings } from './timing.server.ts'
-
-// Use a deployment-friendly path
-const CACHE_DATABASE_PATH = process.env.NODE_ENV === 'production'
-	? path.join(process.cwd(), 'cache.db')
-	: getRequiredServerEnvVar('CACHE_DATABASE_PATH')
-
-const cacheDb = remember('cacheDb', createDatabase)
-
-function createDatabase(tryAgain = true): BetterSqlite3.Database {
-	// Create the directory if it doesn't exist
-	const dbDir = path.dirname(CACHE_DATABASE_PATH)
-	if (!fs.existsSync(dbDir)) {
-		fs.mkdirSync(dbDir, { recursive: true })
-	}
-
-	const db = new Database(CACHE_DATABASE_PATH)
-	try {
-		// create cache table with metadata JSON column and value JSON column if it does not exist already
-		db.exec(`
-      CREATE TABLE IF NOT EXISTS cache (
-        key TEXT PRIMARY KEY,
-        metadata TEXT,
-        value TEXT
-      )
-    `)
-	} catch (error: unknown) {
-		fs.unlinkSync(CACHE_DATABASE_PATH)
-		if (tryAgain) {
-			console.error(
-				`Error creating cache database, deleting the file at "${CACHE_DATABASE_PATH}" and trying again...`,
-			)
-			return createDatabase(false)
-		}
-		throw error
-	}
-	return db
-}
 
 const lruInstance = remember(
 	'lru-cache',
@@ -74,54 +33,29 @@ export const lruCache = {
 	},
 } satisfies Cache
 
-const preparedGet = cacheDb.prepare(
-	'SELECT value, metadata FROM cache WHERE key = ?',
-)
-const preparedSet = cacheDb.prepare(
-	'INSERT OR REPLACE INTO cache (key, value, metadata) VALUES (@key, @value, @metadata)',
-)
-const preparedDelete = cacheDb.prepare('DELETE FROM cache WHERE key = ?')
-
 export const cache: CachifiedCache = {
-	name: 'SQLite cache',
+	name: 'LRU cache',
 	get(key) {
-		const result = preparedGet.get(key) as any // TODO: fix this with zod or something
-		if (!result) return null
-		return {
-			metadata: JSON.parse(result.metadata),
-			value: JSON.parse(result.value),
-		}
+		return lruCache.get(key)
 	},
 	async set(key, entry) {
-		preparedSet.run({
-			key,
-			value: JSON.stringify(entry.value),
-			metadata: JSON.stringify(entry.metadata),
-		})
+		return lruCache.set(key, entry)
 	},
 	async delete(key) {
-		preparedDelete.run(key)
+		return lruCache.delete(key)
 	},
 }
 
-const preparedAllKeys = cacheDb.prepare('SELECT key FROM cache LIMIT ?')
 export async function getAllCacheKeys(limit: number) {
 	return {
-		sqlite: preparedAllKeys
-			.all(limit)
-			.map((row) => (row as { key: string }).key),
+		sqlite: [],
 		lru: [...lruInstance.keys()],
 	}
 }
 
-const preparedKeySearch = cacheDb.prepare(
-	'SELECT key FROM cache WHERE key LIKE ? LIMIT ?',
-)
 export async function searchCacheKeys(search: string, limit: number) {
 	return {
-		sqlite: preparedKeySearch
-			.all(`%${search}%`, limit)
-			.map((row) => (row as { key: string }).key),
+		sqlite: [],
 		lru: [...lruInstance.keys()].filter((key) => key.includes(search)),
 	}
 }
