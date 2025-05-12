@@ -26,7 +26,7 @@
     "postinstall": "patch-package --patch-dir other/patches",
     "clean": "rimraf ./node_modules/.cache ./server/dist ./build ./public/build",
     "prebuild": "npm run clean && echo All clean ✨",
-    "build": "run-s build:*",
+    "build": "run-s build:* && prisma generate",
     "build:remix": "vite build --sourcemap && vite build --ssr --sourcemap",
     "build:server": "tsx ./other/build-server.ts",
     "build:info": "tsx ./other/generate-build-info",
