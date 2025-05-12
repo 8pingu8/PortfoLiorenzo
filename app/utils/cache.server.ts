@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import {
 	type Cache,
 	cachified as baseCachified,
@@ -10,22 +11,26 @@ import {
 } from '@epic-web/cachified'
 import { remember } from '@epic-web/remember'
 import Database, { type default as BetterSqlite3 } from 'better-sqlite3'
-import { getInstanceInfo, getInstanceInfoSync } from 'litefs-js'
 import { LRUCache } from 'lru-cache'
-import { updatePrimaryCacheValue } from '#app/routes/resources+/cache.sqlite.ts'
 import { getRequiredServerEnvVar } from './misc.tsx'
 import { getUser } from './session.server.ts'
 import { time, type Timings } from './timing.server.ts'
 
-const CACHE_DATABASE_PATH = getRequiredServerEnvVar('CACHE_DATABASE_PATH')
+// Use a deployment-friendly path
+const CACHE_DATABASE_PATH = process.env.NODE_ENV === 'production'
+	? path.join(process.cwd(), 'cache.db')
+	: getRequiredServerEnvVar('CACHE_DATABASE_PATH')
 
 const cacheDb = remember('cacheDb', createDatabase)
 
 function createDatabase(tryAgain = true): BetterSqlite3.Database {
-	const db = new Database(CACHE_DATABASE_PATH)
-	const { currentIsPrimary } = getInstanceInfoSync()
-	if (!currentIsPrimary) return db
+	// Create the directory if it doesn't exist
+	const dbDir = path.dirname(CACHE_DATABASE_PATH)
+	if (!fs.existsSync(dbDir)) {
+		fs.mkdirSync(dbDir, { recursive: true })
+	}
 
+	const db = new Database(CACHE_DATABASE_PATH)
 	try {
 		// create cache table with metadata JSON column and value JSON column if it does not exist already
 		db.exec(`
@@ -88,45 +93,14 @@ export const cache: CachifiedCache = {
 		}
 	},
 	async set(key, entry) {
-		const { currentIsPrimary, primaryInstance } = await getInstanceInfo()
-		if (currentIsPrimary) {
-			preparedSet.run({
-				key,
-				value: JSON.stringify(entry.value),
-				metadata: JSON.stringify(entry.metadata),
-			})
-		} else {
-			// fire-and-forget cache update
-			void updatePrimaryCacheValue!({
-				key,
-				cacheValue: entry,
-			}).then((response) => {
-				if (!response.ok) {
-					console.error(
-						`Error updating cache value for key "${key}" on primary instance (${primaryInstance}): ${response.status} ${response.statusText}`,
-						{ entry },
-					)
-				}
-			})
-		}
+		preparedSet.run({
+			key,
+			value: JSON.stringify(entry.value),
+			metadata: JSON.stringify(entry.metadata),
+		})
 	},
 	async delete(key) {
-		const { currentIsPrimary, primaryInstance } = await getInstanceInfo()
-		if (currentIsPrimary) {
-			preparedDelete.run(key)
-		} else {
-			// fire-and-forget cache update
-			void updatePrimaryCacheValue!({
-				key,
-				cacheValue: undefined,
-			}).then((response) => {
-				if (!response.ok) {
-					console.error(
-						`Error deleting cache value for key "${key}" on primary instance (${primaryInstance}): ${response.status} ${response.statusText}`,
-					)
-				}
-			})
-		}
+		preparedDelete.run(key)
 	},
 }
 

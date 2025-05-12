@@ -1,6 +1,5 @@
 import { type User } from '@prisma/client'
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
-import { ensurePrimary } from '#app/utils/cjs/litefs-js.server.js'
 import { getLoginInfoSession } from './login.server.ts'
 import { getRequiredServerEnvVar } from './misc.tsx'
 import {
@@ -90,7 +89,6 @@ async function getSession(request: Request) {
 		signOut: async () => {
 			const sessionId = getSessionId()
 			if (sessionId) {
-				await ensurePrimary()
 				unsetSessionId()
 				prisma.session
 					.delete({ where: { id: sessionId } })
@@ -131,7 +129,6 @@ async function deleteOtherSessions(request: Request) {
 		return
 	}
 	const user = await getUserFromSessionId(token)
-	await ensurePrimary()
 	await prisma.session.deleteMany({
 		where: { userId: user.id, NOT: { id: token } },
 	})

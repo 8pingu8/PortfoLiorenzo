@@ -1,7 +1,6 @@
 import path from 'path'
 import { type ActionFunctionArgs, json, redirect } from '@remix-run/node'
 import { cache } from '#app/utils/cache.server.ts'
-import { ensurePrimary } from '#app/utils/cjs/litefs-js.server.js'
 import { getPeople } from '#app/utils/credits.server.ts'
 import {
 	getBlogMdxListItems,
@@ -36,7 +35,6 @@ export function isRefreshShaInfo(value: any): value is RefreshShaInfo {
 export const commitShaKey = 'meta:last-refresh-commit-sha'
 
 export async function action({ request }: ActionFunctionArgs) {
-	await ensurePrimary()
 	if (
 		request.headers.get('auth') !==
 		getRequiredServerEnvVar('REFRESH_CACHE_SECRET')

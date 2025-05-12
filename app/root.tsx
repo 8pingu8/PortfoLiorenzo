@@ -26,7 +26,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import * as React from 'react'
 import { useSpinDelay } from 'spin-delay'
 import { type KCDHandle } from '#app/types.ts'
-import { getInstanceInfo } from '#app/utils/cjs/litefs-js.server.js'
 import { useCapturedRouteError } from '#app/utils/misc.tsx'
 import { ArrowLink } from './components/arrow-button.tsx'
 import { ErrorPage, FourHundred } from './components/errors.tsx'
@@ -134,14 +133,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
 		user,
 		clientSession,
 		loginInfoSession,
-		primaryInstance,
 		workshops,
 		workshopEvents,
 	] = await Promise.all([
 		session.getUser({ timings }),
 		getClientSession(request, session.getUser({ timings })),
 		getLoginInfoSession(request),
-		getInstanceInfo().then((i) => i.primaryInstance),
 		getWorkshops({ request, timings }),
 		getScheduledEvents({ request, timings }),
 	])
@@ -160,7 +157,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 			hints: getHints(request),
 			origin: getDomainUrl(request),
 			path: new URL(request.url).pathname,
-			flyPrimaryInstance: primaryInstance,
 			userPrefs: {
 				theme: getTheme(request),
 			},

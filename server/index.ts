@@ -21,7 +21,6 @@ import onFinished from 'on-finished'
 import serverTiming from 'server-timing'
 import sourceMapSupport from 'source-map-support'
 import { type WebSocketServer } from 'ws'
-import { getInstanceInfo } from '../app/utils/cjs/litefs-js.server.js'
 import {
 	getRedirectsMiddleware,
 	oldImgSocial,
@@ -81,12 +80,11 @@ app.post('/__metronome', (req, res) => {
 })
 
 app.use(async (req, res, next) => {
-	const { currentInstance, primaryInstance } = await getInstanceInfo()
 	res.set('X-Powered-By', 'Kody the Koala')
 	res.set('X-Fly-Region', process.env.FLY_REGION ?? 'unknown')
 	res.set('X-Fly-App', process.env.FLY_APP_NAME ?? 'unknown')
-	res.set('X-Fly-Instance', currentInstance)
-	res.set('X-Fly-Primary-Instance', primaryInstance)
+	res.set('X-Fly-Instance', 'development')
+	res.set('X-Fly-Primary-Instance', 'development')
 	res.set('X-Frame-Options', 'SAMEORIGIN')
 	const proto = req.get('X-Forwarded-Proto') ?? req.protocol
 

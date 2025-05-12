@@ -3,10 +3,6 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import { addSubscriberToForm } from '#app/kit/kit.server.js'
 import { cache, cachified } from '#app/utils/cache.server.js'
-import {
-	ensureInstance,
-	getInstanceInfo,
-} from '#app/utils/cjs/litefs-js.server.js'
 import { downloadMdxFilesCached } from '#app/utils/mdx.server.js'
 import { getDomainUrl, getErrorMessage } from '#app/utils/misc.js'
 import { searchKCD } from '#app/utils/search.server.js'
@@ -243,7 +239,6 @@ function createServer() {
 const server = createServer()
 
 export async function connect(sessionId?: string | null) {
-	const { currentInstance } = await getInstanceInfo()
 	const transport = new FetchSSEServerTransport('/mcp', sessionId)
 	transport.onclose = () => {
 		transports.delete(transport.sessionId)
@@ -260,7 +255,6 @@ export async function connect(sessionId?: string | null) {
 		getFreshValue() {
 			return {
 				sessionId: transport.sessionId,
-				instance: currentInstance,
 			}
 		},
 	})
@@ -275,7 +269,6 @@ export async function getTransport(sessionId: string) {
 			throw new Error(`Instance for sessionId "${sessionId}" not found`)
 		},
 	})
-	ensureInstance(instance)
 
 	return transports.get(sessionId)
 }

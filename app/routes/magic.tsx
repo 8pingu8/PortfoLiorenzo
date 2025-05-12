@@ -1,7 +1,6 @@
 import { type LoaderFunctionArgs, redirect } from '@remix-run/node'
 import { type KCDHandle } from '#app/types.ts'
 
-import { ensurePrimary } from '#app/utils/cjs/litefs-js.server.js'
 import { getClientSession } from '#app/utils/client.server.ts'
 import { getLoginInfoSession } from '#app/utils/login.server.ts'
 import { getErrorMessage, isResponse } from '#app/utils/misc.tsx'
@@ -12,7 +11,6 @@ export const handle: KCDHandle = {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-	await ensurePrimary()
 	const loginInfoSession = await getLoginInfoSession(request)
 	try {
 		const session = await getUserSessionFromMagicLink(request)

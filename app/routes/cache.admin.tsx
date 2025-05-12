@@ -27,11 +27,6 @@ import {
 	searchCacheKeys,
 } from '#app/utils/cache.server.ts'
 import {
-	ensureInstance,
-	getAllInstances,
-	getInstanceInfo,
-} from '#app/utils/cjs/litefs-js.server.js'
-import {
 	useDebounce,
 	useDoubleCheck,
 	useCapturedRouteError,
@@ -44,33 +39,23 @@ export async function loader({ request }: LoaderFunctionArgs) {
 	const query = searchParams.get('query')
 	const limit = Number(searchParams.get('limit') ?? 100)
 
-	const currentInstanceInfo = await getInstanceInfo()
-	const instance =
-		searchParams.get('instance') ?? currentInstanceInfo.currentInstance
-	const instances = await getAllInstances()
-	await ensureInstance(instance)
-
 	let cacheKeys: { sqlite: Array<string>; lru: Array<string> }
 	if (typeof query === 'string') {
 		cacheKeys = await searchCacheKeys(query, limit)
 	} else {
 		cacheKeys = await getAllCacheKeys(limit)
 	}
-	return json({ cacheKeys, instance, instances, currentInstanceInfo })
+	return json({ cacheKeys })
 }
 
 export async function action({ request }: ActionFunctionArgs) {
 	await requireAdminUser(request)
 	const formData = await request.formData()
 	const key = formData.get('cacheKey')
-	const { currentInstance } = await getInstanceInfo()
-	const instance = formData.get('instance') ?? currentInstance
 	const type = formData.get('type')
 
 	invariant(typeof key === 'string', 'cacheKey must be a string')
 	invariant(typeof type === 'string', 'type must be a string')
-	invariant(typeof instance === 'string', 'instance must be a string')
-	await ensureInstance(instance)
 
 	switch (type) {
 		case 'sqlite': {
@@ -94,7 +79,6 @@ export default function CacheAdminRoute() {
 	const submit = useSubmit()
 	const query = searchParams.get('query') ?? ''
 	const limit = searchParams.get('limit') ?? '100'
-	const instance = searchParams.get('instance') ?? data.instance
 
 	const handleFormChange = useDebounce((form: HTMLFormElement) => {
 		submit(form)
@@ -131,45 +115,6 @@ export default function CacheAdminRoute() {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-wrap items-center gap-4">
-					<Field
-						label="Limit"
-						name="limit"
-						defaultValue={limit}
-						type="number"
-						step="1"
-						min="1"
-						max="10000"
-						placeholder="results limit"
-					/>
-					<FieldContainer label="Instance" id="instance">
-						{({ inputProps }) => (
-							<select
-								{...inputProps}
-								name="instance"
-								defaultValue={instance}
-								className={inputClassName}
-							>
-								{Object.entries(data.instances).map(([inst, region]) => (
-									<option key={inst} value={inst}>
-										{[
-											inst,
-											`(${region})`,
-											inst === data.currentInstanceInfo.currentInstance
-												? '(current)'
-												: '',
-											inst === data.currentInstanceInfo.primaryInstance
-												? ' (primary)'
-												: '',
-										]
-											.filter(Boolean)
-											.join(' ')}
-									</option>
-								))}
-							</select>
-						)}
-					</FieldContainer>
-				</div>
 			</Form>
 			<Spacer size="2xs" />
 			<div className="flex flex-col gap-4">
@@ -178,7 +123,6 @@ export default function CacheAdminRoute() {
 					<CacheKeyRow
 						key={key}
 						cacheKey={key}
-						instance={instance}
 						type="lru"
 					/>
 				))}
@@ -190,7 +134,6 @@ export default function CacheAdminRoute() {
 					<CacheKeyRow
 						key={key}
 						cacheKey={key}
-						instance={instance}
 						type="sqlite"
 					/>
 				))}
@@ -201,11 +144,9 @@ export default function CacheAdminRoute() {
 
 function CacheKeyRow({
 	cacheKey,
-	instance,
 	type,
 }: {
 	cacheKey: string
-	instance?: string
 	type: string
 }) {
 	const fetcher = useFetcher()
@@ -214,7 +155,6 @@ function CacheKeyRow({
 		<div className="flex items-center gap-2 font-mono">
 			<fetcher.Form method="POST">
 				<input type="hidden" name="cacheKey" value={cacheKey} />
-				<input type="hidden" name="instance" value={instance} />
 				<input type="hidden" name="type" value={type} />
 				<Button
 					size="small"
@@ -231,7 +171,7 @@ function CacheKeyRow({
 			<a
 				href={`/resources/cache/${type}/${encodeURIComponent(
 					cacheKey,
-				)}?instance=${instance}`}
+				)}`}
 			>
 				{cacheKey}
 			</a>

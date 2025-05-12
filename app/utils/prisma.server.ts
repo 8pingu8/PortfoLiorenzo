@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client'
 import chalk from 'chalk'
 import pProps from 'p-props'
 import { type Session } from '#app/types.ts'
-import { ensurePrimary } from '#app/utils/cjs/litefs-js.server.js'
 import { decrypt, encrypt } from './encryption.server.ts'
 import { time, type Timings } from './timing.server.ts'
 
@@ -145,7 +144,6 @@ async function validateMagicLink(link: string, sessionMagicLink?: string) {
 async function createSession(
 	sessionData: Omit<Session, 'id' | 'expirationDate' | 'createdAt'>,
 ) {
-	await ensurePrimary()
 	return prisma.session.create({
 		data: {
 			...sessionData,
@@ -170,7 +168,6 @@ async function getUserFromSessionId(
 	}
 
 	if (Date.now() > session.expirationDate.getTime()) {
-		await ensurePrimary()
 		await prisma.session.delete({ where: { id: sessionId } })
 		throw new Error('Session expired. Please request a new magic link.')
 	}
@@ -178,7 +175,6 @@ async function getUserFromSessionId(
 	// if there's less than ~six months left, extend the session
 	const twoWeeks = 1000 * 60 * 60 * 24 * 30 * 6
 	if (Date.now() + twoWeeks > session.expirationDate.getTime()) {
-		await ensurePrimary()
 		const newExpirationDate = new Date(Date.now() + sessionExpirationTime)
 		await prisma.session.update({
 			data: { expirationDate: newExpirationDate },
