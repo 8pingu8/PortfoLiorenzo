@@ -14,10 +14,14 @@ import { LaptopIcon, MoonIcon, SunIcon } from './icons.tsx'
 import { TeamCircle } from './team-circle.tsx'
 
 const LINKS = [
-	{ name: 'Projects', to: '/projects' },
+	{ name: 'Bio', to: '/bio' },
+	{ name: 'Portfolio', to: '/projects' },
 ]
 
-const MOBILE_LINKS = [{ name: 'Projects', to: '/projects' }]
+const MOBILE_LINKS = [
+	{ name: 'Bio', to: '/bio' },
+	{ name: 'Portfolio', to: '/projects' }
+]
 
 function NavLink({
 	to,
@@ -25,16 +29,17 @@ function NavLink({
 }: Omit<Parameters<typeof Link>['0'], 'to'> & { to: string }) {
 	const location = useLocation()
 	const isSelected =
-		to === location.pathname || location.pathname.startsWith(`${to}/`)
+		(to === '/projects' && location.pathname === '/projects') ||
+		(to === '/bio' && location.pathname === '/bio')
 
 	return (
 		<li className="px-5 py-2">
 			<Link
 				prefetch="intent"
 				className={clsx(
-					'underlined block whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none',
+					'block whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none underlined',
 					{
-						'active text-team-current': isSelected,
+						'text-team-current active': isSelected,
 						'text-secondary': !isSelected,
 					},
 				)}
@@ -215,7 +220,6 @@ function ProfileButton({
 	team: OptionalTeam
 	magicLinkVerified: boolean | undefined
 }) {
-	const user = useOptionalUser()
 	const controls = useAnimation()
 	const [ref, state] = useElementState()
 	const shouldReduceMotion = useReducedMotion()
@@ -243,12 +247,7 @@ function ProfileButton({
 	}, [state, controls, shouldReduceMotion])
 
 	return (
-		<Link
-			prefetch="intent"
-			to={user ? '/me' : magicLinkVerified ? '/signup' : '/login'}
-			aria-label={
-				user ? 'My Account' : magicLinkVerified ? 'Finish signing up' : 'Login'
-			}
+		<div
 			className={clsx(
 				'ml-4 inline-flex h-14 w-14 items-center justify-center rounded-full focus:outline-none',
 			)}
@@ -266,7 +265,7 @@ function ProfileButton({
 				alt={imageAlt}
 				crossOrigin="anonymous"
 			/>
-		</Link>
+		</div>
 	)
 }
 
@@ -274,6 +273,11 @@ function Navbar() {
 	const [team] = useTeam()
 	const { requestInfo, userInfo } = useRootData()
 	const avatar = userInfo ? userInfo.avatar : kodyProfiles[team]
+	const location = useLocation()
+	
+	// Check if we're on a project detail page
+	const isProjectDetail = location.pathname.startsWith('/projects/')
+	const projectName = isProjectDetail ? location.pathname.split('/').pop()?.replace(/-/g, ' ') : null
 
 	return (
 		<div className="px-5vw py-9 lg:py-12">
@@ -281,20 +285,30 @@ function Navbar() {
 				<div className="flex justify-center gap-4 align-middle">
 					<Link
 						prefetch="intent"
-						to="/"
-						className="text-primary underlined block whitespace-nowrap text-2xl font-medium transition focus:outline-none"
+						to="/bio"
+						className="text-primary block whitespace-nowrap text-2xl font-medium transition focus:outline-none underlined"
 					>
-						<h1>Kent C. Dodds</h1>
+						<h1>Lorenzo Jacopo Avalle</h1>
 					</Link>
 				</div>
 
-				<ul className="hidden lg:flex">
-					{LINKS.map((link) => (
-						<NavLink key={link.to} to={link.to}>
-							{link.name}
-						</NavLink>
-					))}
-				</ul>
+				<div className="flex items-center gap-8">
+					<ul className="hidden lg:flex">
+						{LINKS.map((link) => (
+							<NavLink key={link.to} to={link.to}>
+								{link.name}
+							</NavLink>
+						))}
+					</ul>
+
+					{isProjectDetail && (
+						<div className="hidden lg:block">
+							<span className="text-lg font-medium text-team-current active underlined">
+								{projectName}
+							</span>
+						</div>
+					)}
+				</div>
 
 				<div className="flex items-center justify-center">
 					<div className="block lg:hidden">

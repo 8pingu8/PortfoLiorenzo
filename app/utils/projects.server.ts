@@ -12,9 +12,12 @@ export type Project = {
   cover_image: string
   images: string[]
   video?: string
+  videoDescription?: string
   tags?: string[]
   links?: Record<string, string>
   model?: string
+  date?: string
+  emoji?: string
 }
 
 export async function getProjects({

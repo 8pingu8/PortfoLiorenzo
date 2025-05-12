@@ -6,25 +6,76 @@
 # - cover_image: Path to main image (string)
 # - images: List of image/gif paths (list of strings)
 # - video: Path to self-hosted mp4 (string, optional)
+# - videoDescription: Description to display above the video (string, optional)
 # - tags: List of tech/genre tags (list of strings)
 # - links: Dictionary of external links (object, optional)
 # - model: Optional model path (string, optional)
+# - date: Project date range (string, optional)
+# - emoji: Project icon emoji (string, optional)
 
-- title: "Awesome Game pupiah"
-  slug: "awesome-game"
-  description: "A 2D platformer with unique mechanics."
-  longDescription: "This is a longer description for Awesome Game pupiah. It goes into more detail about the gameplay, development process, and unique features."
-  cover_image: "/images/awesome-game/cover.jpg"
+- title: "Connection Lost"
+  slug: "connection-lost"
+  description: "A 3D first-person puzzle game where you play as PipeBot, a legless robot trying to reactivate an abandoned factory's communication network through strategic pipe connections."
+  videoDescription: "Please watch with audio to fully appreciate the gameplay, special effects, and sound design."
+  longDescription: |
+    # Game Concept
+    Connection Lost is a modern take on the classic pipe-connection puzzle genre, reimagined in 3D with a unique twist. As PipeBot, a legless robot abandoned in a factory, players must use the PipeLauncher5001 to shoot connection pipes onto magnetic grid walls, creating paths for electric current to flow from generators to endpoints.
+
+    ## Key Features
+    - 3D pipe placement and connection mechanics, and flow!
+    - Dynamic grid generation system
+    - Precise shooting mechanics with magnetic wall interactions
+    - Atmospheric abandoned factory setting
+    - Progressive difficulty curve with increasingly complex puzzles
+    - Level design tools for designers (and players, in particular!) to create new levels
+    - Replayability and scalability
+
+    ## Technical Implementation
+    As the lead developer and primary programmer, I personally implemented all core game systems:
+
+    - ### Core Systems
+      - **Grid Generation System**: Developed a procedural grid generation system that creates varied and challenging level layouts while ensuring solvability - not automated, developed as a tool for designers. It generates both the grid (room) and the pipes already placed by the designers, as well as special rules tweakings for the single level.
+      - **Pipe Connection Logic**: Built a sophisticated system based on actual 3D implementation for pipe connections, current flow simulation, and magnetic wall interactions
+      - **Flow Simulation**: Implemented a flow system to simulate the flow of electricity through the pipes
+      - **Level Design Tools**: Created a modular level design system for efficient content creation based on JSON, with a lot of freedom for designers to create new levels. This is also available to players, ensuring replayability and scalability.
+
+    - ### Technical Stack
+      - **Engine**: Unreal Engine 5
+      - **Language**: C++
+      - **Key Features**: C++ and Blueprint mixed development, Procedural generation, Level Design Tools, usage of 3D vision to implement mechanics, Niagara
+
+    ## Project Leadership
+    While being the primary developer of all game systems, I worked in a team of 8 people, and many of us were experiencing project development for the first time. This situation presented unique challenges that I successfully navigated:
+
+    - ### Team Management
+      - Coordinated development and design needs across diverse skill levels and effort levels.
+      - Established communication protocols
+      - Managed technical debt while meeting deadlines
+      - Balanced creative vision with technical constraints
+
+    - ### Development Process
+      - Researched and implemented techniques to implement game mechanics
+      - Implemented version control best practices
+      - Established code review processes to maintain code quality
+      - Managed sprint planning and task distribution
+
+    The project's success demonstrates both technical adaptability and leadership, resulting in a complete demo that met all deadlines while maintaining high quality standards, without reducing the creative vision of the project.
+  cover_image: "/images/connection-lost/cover.jpg"
   images:
-    - "/images/awesome-game/screenshot1.png"
-    - "/images/awesome-game/screenshot2.gif"
-  video: "/videos/awesome-game/trailer.mp4"
-  tags: ["Unity", "C#", "Platformer"]
+    - "/pics/connection-lost/ConnectionLostMenu.png"
+    - "/pics/connection-lost/ConnectionLostShoot1.png"
+    - "/pics/connection-lost/mechanicsshort.gif"
+    - "/pics/connection-lost/ConnectionLostShoot2.png"
+    - "/pics/connection-lost/ConnectionLostJSON.png"
+    - "/pics/connection-lost/ConnectionLostJSONdocs.png"
+  video: "/pics/connection-lost/connectionlostclip.mov"
+  tags: ["Unreal Engine 5", "C++", "3D Game", "Puzzle", "First Person", "Team Lead", "Project Management"]
   links:
-    github: "https://github.com/yourbro/awesome-game"
-    itch: "https://yourbro.itch.io/awesome-game"
-    website: "https://awesomegame.com" 
-  model: "/models/duck.glb"
+    itch: "https://yourbro.itch.io/connection-lost"
+    github: "https://github.com/yourbro/connection-lost"
+  model: "/models/pipebot.glb"
+  date: "2024"
+  emoji: "🔌"
 
 - title: "Awesome Game 2"
   slug: "awesome-game2"
@@ -41,6 +92,8 @@
     itch: "https://yourbro.itch.io/awesome-game"
     website: "https://awesomegame.com" 
   model: sphere
+  date: "March 2025 - May 2025"
+  emoji: "🎲"
 
 - title: "Awesome Game 3"
   slug: "awesome-game3"
@@ -56,3 +109,5 @@
     github: "https://github.com/yourbro/awesome-game"
     itch: "https://yourbro.itch.io/awesome-game"
     website: "https://awesomegame.com" 
+  date: "March 2025 - May 2025"
+  emoji: "🎯" 

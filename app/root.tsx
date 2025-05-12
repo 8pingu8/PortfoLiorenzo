@@ -66,6 +66,7 @@ import { getUserInfo } from './utils/user-info.server.ts'
 import { getScheduledEvents } from './utils/workshop-tickets.server.ts'
 import { getWorkshops } from './utils/workshops.server.ts'
 import { Suspense, lazy } from 'react'
+import { VantaBackground } from './components/vanta-background'
 
 export const handle: KCDHandle & { id: string } = {
 	id: 'root',
@@ -321,7 +322,14 @@ function App() {
 	const nonce = useNonce()
 	const [team] = useTeam()
 	const theme = useTheme()
+	const location = useLocation()
+	const navigation = useNavigation()
 	const fathomQueue = React.useRef<FathomQueue>([])
+	const isLoading = useSpinDelay(navigation.state !== 'idle', {
+		delay: 400,
+		minDuration: 1000,
+	})
+
 	return (
 		<html
 			lang="en"
@@ -346,13 +354,25 @@ function App() {
 				</noscript>
 			</head>
 			<body className="bg-white transition duration-500 dark:bg-gray-900">
-				<PageLoadingMessage />
-
+				<VantaBackground />
+				<AnimatePresence mode="wait">
+					{isLoading ? (
+						<motion.div
+							key="loading"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className="fixed inset-0 z-50 flex items-center justify-center bg-primary"
+						>
+							<PageLoadingMessage />
+						</motion.div>
+					) : null}
+				</AnimatePresence>
 				<NotificationMessage queryStringKey="message" delay={0.3} />
 				<Navbar />
 				<Outlet />
 				<Spacer size="base" />
-				<Footer image={images[data.randomFooterImageKey]} />
+				<Footer />
 				<ScrollRestoration nonce={nonce} />
 				{ENV.NODE_ENV === 'development' ? null : (
 					<script
@@ -360,16 +380,13 @@ function App() {
 						src="https://cdn.usefathom.com/script.js"
 						data-site="HJUUDKMT"
 						data-spa="history"
-						data-auto="false" // prevent tracking visit twice on initial page load
+						data-auto="false"
 						data-excluded-domains="localhost"
 						defer
 						onLoad={() => {
 							fathomQueue.current.forEach(({ command }) => {
 								if (window.fathom) {
 									window.fathom[command]()
-								} else {
-									// Fathom isn't available even though the script has loaded
-									// this should never happen!
 								}
 							})
 							fathomQueue.current = []

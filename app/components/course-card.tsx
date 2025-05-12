@@ -7,7 +7,8 @@ import { ArrowIcon } from './icons.tsx'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useRef, useState, useCallback } from 'react'
 import * as THREE from 'three'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, OrbitControls } from '@react-three/drei'
+import { ClientOnly } from '../components/ClientOnly'
 
 const arrowVariants: Variants = {
 	initial: { x: 0, y: 0, opacity: 1, scale: 1 },
@@ -32,6 +33,10 @@ export type CourseCardProps = {
 	label?: string
 	model?: string
 	longDescription?: string
+	isDetail?: boolean
+	emoji?: string
+	date?: string
+	tags?: string[]
 } & (
 	| {
 			imageBuilder: ImageBuilder
@@ -89,10 +94,8 @@ function CourseCardLink({
 	)
 }
 
-function Project3DModel({ mouse, width, height, model, isDetail }: { mouse: { x: number; y: number }; width: number; height: number; model?: string; isDetail?: boolean }) {
-	const meshRef = useRef<THREE.Mesh>(null)
+function Project3DModel({ model, isDetail }: { model?: string; isDetail?: boolean }) {
 	const groupRef = useRef<THREE.Group>(null)
-	const baseRot = useRef({ y: 0 })
 	// Fix model path for detail page
 	let modelPath = model
 	if (isDetail && model && (model.endsWith('.glb') || model.endsWith('.gltf')) && !model.startsWith('..')) {
@@ -103,13 +106,9 @@ function Project3DModel({ mouse, width, height, model, isDetail }: { mouse: { x:
 	const gltf = isGLTF ? useGLTF(modelPath as string) : null
 
 	useFrame(() => {
-		// Only rotate around y axis
-		const targetY = ((mouse.x / width) - 0.5) * Math.PI / 4 // -π/8 to π/8
-		baseRot.current.y += 0.01
-		if (gltf && groupRef.current) {
-			groupRef.current.rotation.y += ((baseRot.current.y + targetY) - groupRef.current.rotation.y) * 0.08
-		} else if (meshRef.current) {
-			meshRef.current.rotation.y += ((baseRot.current.y + targetY) - meshRef.current.rotation.y) * 0.08
+		// Add any additional animation here if needed
+		if (groupRef.current) {
+			groupRef.current.rotation.y += 0.005 // Subtle continuous rotation
 		}
 	})
 
@@ -122,7 +121,7 @@ function Project3DModel({ mouse, width, height, model, isDetail }: { mouse: { x:
 	if (model === 'sphere') geometry = <sphereGeometry args={[0.8, 32, 32]} />
 	// Add more shapes as needed
 	return (
-		<mesh ref={meshRef} scale={1.2}>
+		<mesh ref={groupRef} scale={1.2}>
 			{geometry}
 			<meshStandardMaterial color="#4f8cff" metalness={0.6} roughness={0.4} />
 		</mesh>
@@ -142,6 +141,10 @@ export function CourseCard({
 	horizontal = false,
 	model,
 	longDescription,
+	isDetail = false,
+	emoji,
+	date,
+	tags,
 }: CourseCardProps) {
 	function getImg(builder: ImageBuilder) {
 		return (
@@ -175,7 +178,7 @@ export function CourseCard({
 					)}
 				>
 					<div className="absolute right-0 top-0 hidden origin-bottom-right -translate-y-full translate-x-5 -rotate-90 text-right font-mono text-[11px]/none uppercase tracking-widest text-gray-400 opacity-80 @sm:block @2xl/grid:block @6xl/grid:translate-x-6 @6xl/grid:text-xs/none dark:text-slate-500 dark:opacity-60">
-						{label ?? `${title} course`}
+						{label ?? `${title} project`}
 					</div>
 					<div
 						className={clsx(
@@ -215,11 +218,32 @@ export function CourseCard({
 									onMouseMove={handleMouseMove}
 									onMouseLeave={() => setMouse({ x: size.width / 2, y: size.height / 2 })}
 								>
-									<Canvas style={{ width: '100%', height: '100%' }} camera={{ position: [2, 2, 2] }} shadows>
-										<ambientLight intensity={0.7} />
-										<directionalLight position={[5, 5, 5]} intensity={0.5} />
-										<Project3DModel mouse={mouse} width={size.width} height={size.height} model={model} />
-									</Canvas>
+									<ClientOnly>
+										<Canvas 
+											style={{ width: '100%', height: '100%' }} 
+											camera={{ position: [2, 2, 2], fov: 50 }} 
+											shadows
+										>
+											<ambientLight intensity={0.7} />
+											<directionalLight position={[5, 5, 5]} intensity={0.5} castShadow />
+											<Project3DModel model={model} isDetail={false} />
+											<OrbitControls 
+												enableZoom={false}
+												enablePan={false}
+												minPolarAngle={Math.PI / 4}
+												maxPolarAngle={Math.PI * 3/4}
+												rotateSpeed={0.5}
+											/>
+											<mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]} receiveShadow>
+												<planeGeometry args={[10, 10]} />
+												<shadowMaterial opacity={0.4} />
+											</mesh>
+										</Canvas>
+									</ClientOnly>
+									{/* Add hint box */}
+									<div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 px-3 py-1.5 rounded-full text-sm text-gray-600 dark:text-gray-300 shadow-sm border border-gray-200 dark:border-gray-700 z-10">
+										Click and drag to rotate
+									</div>
 								</div>
 							)
 						})()}
@@ -250,7 +274,7 @@ export function CourseCard({
 							)}
 						>
 							<path
-								d="M0 39.5H320M0 79.5H320M0 119.5H320M0 159.5H320M0 199.5H320M39.5 240L39.5 0M79.5 240L79.5 0M119.5 240L119.5 0M159.5 240V0M199.5 240L199.5 0M239.5 240L239.5 0M279.5 240V0"
+								d="M0 39.5H320M0 79.5H320M0 119.5H320M0 159.5H320M0 199.5H320M39.5 240L39.5 0M79.5 240L79.5 0M119.5 240L79.5 0M159.5 240V0M199.5 240L199.5 0M239.5 240L239.5 0M279.5 240V0"
 								stroke="currentColor"
 								strokeWidth="1"
 								vectorEffect="non-scaling-stroke"
@@ -266,8 +290,42 @@ export function CourseCard({
 					)}
 				>
 					<div className="flex-1">
-						<h2 className={titleClassName}>{title}</h2>
+						<div className="flex items-center gap-3 mb-4">
+							{emoji && (
+								<div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+									<span className="text-2xl">{emoji}</span>
+								</div>
+							)}
+							<div>
+								<h2 className={titleClassName}>{title}</h2>
+								{date && (
+									<p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+										{date}
+									</p>
+								)}
+							</div>
+						</div>
 						<p className={descriptionClassName}>{description}</p>
+						{longDescription && isDetail && (
+							<p className={descriptionClassName}>{longDescription}</p>
+						)}
+						{tags && tags.length > 0 && (
+							<div className="flex flex-wrap gap-2 mt-4">
+								{tags.slice(0, 3).map((tag) => (
+									<span
+										key={tag}
+										className="inline-block bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-sm px-3 py-1 rounded-full shadow-sm border border-gray-200 dark:border-gray-700 font-medium"
+									>
+										{tag}
+									</span>
+								))}
+								{tags.length > 3 && (
+									<span className="inline-block text-gray-500 dark:text-gray-400 text-sm">
+										+{tags.length - 3} more
+									</span>
+								)}
+							</div>
+						)}
 					</div>
 
 					<CourseCardLink
@@ -280,12 +338,6 @@ export function CourseCard({
 					/>
 				</div>
 			</div>
-
-			{longDescription && (
-				<div className="course-card-gradient dark:bg-gray-850 rounded-2xl p-6 mt-6 text-lg text-gray-700 dark:text-gray-200">
-					{longDescription}
-				</div>
-			)}
 		</>
 	)
 }

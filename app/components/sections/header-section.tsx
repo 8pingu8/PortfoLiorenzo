@@ -2,13 +2,14 @@ import { clsx } from 'clsx'
 import { ArrowLink } from '../arrow-button.tsx'
 import { Grid } from '../grid.tsx'
 import { H2 } from '../typography.tsx'
+import { type ReactNode } from 'react'
 
 interface HeaderSectionProps {
 	ctaUrl?: string
 	cta?: string
 	as?: React.ElementType
-	title: string
-	subTitle: string
+	title: ReactNode
+	subTitle: ReactNode
 	className?: string
 }
 
