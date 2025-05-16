@@ -1,4 +1,4 @@
-import {
+/*import {
 	type ActionFunctionArgs,
 	json,
 	type LoaderFunctionArgs,
@@ -31,10 +31,10 @@ import {
 	useDoubleCheck,
 	useCapturedRouteError,
 } from '#app/utils/misc.tsx'
-import { requireAdminUser } from '#app/utils/session.server.ts'
+//import { requireAdminUser } from '#app/utils/session.server.ts'
 
 export async function loader({ request }: LoaderFunctionArgs) {
-	await requireAdminUser(request)
+	//await requireAdminUser(request)
 	const searchParams = new URL(request.url).searchParams
 	const query = searchParams.get('query')
 	const limit = Number(searchParams.get('limit') ?? 100)
@@ -49,7 +49,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-	await requireAdminUser(request)
+	//await requireAdminUser(request)
 	const formData = await request.formData()
 	const key = formData.get('cacheKey')
 	const type = formData.get('type')
@@ -189,3 +189,4 @@ export function ErrorBoundary() {
 		return <div>Unknown error</div>
 	}
 }
+*/

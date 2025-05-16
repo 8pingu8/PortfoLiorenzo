@@ -8,7 +8,7 @@ import { type OptionalTeam } from '#app/utils/misc.tsx'
 import { useRequestInfo } from '#app/utils/request-info.ts'
 import { useTeam } from '#app/utils/team-provider.tsx'
 import { THEME_FETCHER_KEY, useOptimisticThemeMode } from '#app/utils/theme.tsx'
-import { useOptionalUser, useRootData } from '#app/utils/use-root-data.ts'
+import { useRootData } from '#app/utils/use-root-data.ts'
 import { useElementState } from './hooks/use-element-state.tsx'
 import { LaptopIcon, MoonIcon, SunIcon } from './icons.tsx'
 import { TeamCircle } from './team-circle.tsx'
@@ -213,12 +213,10 @@ function ProfileButton({
 	imageUrl,
 	imageAlt,
 	team,
-	magicLinkVerified,
 }: {
 	imageUrl: string
 	imageAlt: string
 	team: OptionalTeam
-	magicLinkVerified: boolean | undefined
 }) {
 	const controls = useAnimation()
 	const [ref, state] = useElementState()
@@ -271,8 +269,8 @@ function ProfileButton({
 
 function Navbar() {
 	const [team] = useTeam()
-	const { requestInfo, userInfo } = useRootData()
-	const avatar = userInfo ? userInfo.avatar : kodyProfiles[team]
+	const { requestInfo } = useRootData()
+	const avatar = kodyProfiles[team]
 	const location = useLocation()
 	
 	// Check if we're on a project detail page
@@ -319,7 +317,6 @@ function Navbar() {
 					</div>
 
 					<ProfileButton
-						magicLinkVerified={requestInfo.session.magicLinkVerified}
 						imageUrl={avatar.src}
 						imageAlt={avatar.alt}
 						team={team}

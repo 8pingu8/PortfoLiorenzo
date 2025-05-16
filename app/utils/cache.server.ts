@@ -9,7 +9,7 @@ import {
 } from '@epic-web/cachified'
 import { remember } from '@epic-web/remember'
 import { LRUCache } from 'lru-cache'
-import { getUser } from './session.server.ts'
+//import { getUser } from './session.server.ts'
 import { time, type Timings } from './timing.server.ts'
 
 const lruInstance = remember(
@@ -75,7 +75,7 @@ export async function shouldForceFresh({
 	if (!request) return false
 	const fresh = new URL(request.url).searchParams.get('fresh')
 	if (typeof fresh !== 'string') return false
-	if ((await getUser(request))?.role !== 'ADMIN') return false
+	//if ((await getUser(request))?.role !== 'ADMIN') return false
 	if (fresh === '') return true
 
 	return fresh.split(',').includes(key)

@@ -244,3 +244,30 @@ export {
 	KCDSitemapEntry,
 	GitHubFile,
 }
+
+// Define our own types instead of importing from Prisma
+export interface User {
+	id: string
+	email: string
+	name: string | null
+	username: string | null
+	createdAt: Date
+	updatedAt: Date
+}
+
+export interface Session {
+	id: string
+	userId: string
+	expiresAt: Date
+}
+
+export interface Call {
+	id: string
+	title: string
+	description: string
+	userId: string
+	createdAt: Date
+	updatedAt: Date
+	duration: number
+	ended: boolean
+}

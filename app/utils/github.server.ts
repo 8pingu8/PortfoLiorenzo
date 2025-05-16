@@ -133,7 +133,7 @@ async function downloadFileBySha(sha: string) {
 		file_sha: sha,
 	})
 	//                                lol
-	const encoding = data.encoding as Parameters<typeof Buffer.from>['1']
+	const encoding = "utf-8"//data.encoding as Parameters<typeof Buffer.from>['1']
 	return Buffer.from(data.content, encoding).toString()
 }
 
@@ -149,7 +149,7 @@ async function downloadFile(path: string) {
 	})
 
 	if ('content' in data && 'encoding' in data) {
-		const encoding = data.encoding as Parameters<typeof Buffer.from>['1']
+		const encoding = "utf-8"//data.encoding as Parameters<typeof Buffer.from>['1']
 		return Buffer.from(data.content, encoding).toString()
 	}
 

@@ -6,7 +6,7 @@ import { type MdxListItem } from '#app/types.ts'
 import { getErrorMessage } from '#app/utils/misc.tsx'
 import { ArrowLink } from './arrow-button.tsx'
 import { Facepalm, Grimmacing, MissingSomething } from './kifs.tsx'
-import { BlogSection } from './sections/blog-section.tsx'
+//import { BlogSection } from './sections/blog-section.tsx'
 import { HeroSection, type HeroSectionProps } from './sections/hero-section.tsx'
 import { H2, H6 } from './typography.tsx'
 
@@ -89,16 +89,7 @@ function ErrorPage({
 				) : null}
 				<HeroSection {...heroProps} />
 
-				{articles?.length ? (
-					<>
-						<div id="articles" />
-						<BlogSection
-							articles={articles}
-							title="Looking for something to read?"
-							description="Have a look at these articles."
-						/>
-					</>
-				) : null}
+				
 			</main>
 		</>
 	)

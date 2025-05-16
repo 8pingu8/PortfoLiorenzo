@@ -2,7 +2,6 @@ import { matchSorter, rankings } from 'match-sorter'
 import { getEpisodePath as getCKEpisodePath } from '#app/utils/call-kent.ts'
 import { getCWKEpisodePath } from '#app/utils/chats-with-kent.ts'
 import { stripHtml } from '#app/utils/markdown.server.ts'
-import { getBlogMdxListItems } from '#app/utils/mdx.server.ts'
 import { typedBoolean } from '#app/utils/misc.tsx'
 import { getSeasons as getChatsWithKentSeasons } from '#app/utils/simplecast.server.ts'
 import { getTalksAndTags } from '#app/utils/talks.server.ts'
@@ -18,7 +17,7 @@ type Item = {
 	}
 } & (
 	| {
-			segment: 'Blog Posts' | 'Talks' | 'Workshops'
+			segment: 'Talks' | 'Workshops'
 			metadata: {
 				slug: string
 				seasonNumber?: never
@@ -36,7 +35,7 @@ type Item = {
 )
 
 type NormalizedItemGroup = {
-	prefix: 'b' | 't' | 'cwk' | 'ck' | 'w'
+	prefix: 't' | 'cwk' | 'ck' | 'w'
 	items: Array<Item>
 }
 
@@ -47,9 +46,8 @@ export async function searchKCD({
 	request: Request
 	query: string
 }) {
-	const [posts, callKentEpisodes, chatsWithKentEpisodes, { talks }, workshops] =
+	const [callKentEpisodes, chatsWithKentEpisodes, { talks }, workshops] =
 		await Promise.all([
-			getBlogMdxListItems({ request }),
 			getCallKentEpisodes({ request }),
 			getChatsWithKentSeasons({ request }),
 			getTalksAndTags({ request }),
@@ -57,23 +55,6 @@ export async function searchKCD({
 		])
 
 	const normalizedGroups: Array<NormalizedItemGroup> = [
-		{
-			prefix: 'b',
-			items: posts.map((p) => ({
-				route: `/blog/${p.slug}`,
-				segment: 'Blog Posts',
-				title: p.frontmatter.title ?? 'Untitled',
-				metadata: { slug: p.slug },
-				values: {
-					priority: p.frontmatter.title ?? '',
-					other: [
-						p.frontmatter.description ?? '',
-						...(p.frontmatter.categories ?? []),
-						...(p.frontmatter.meta?.keywords ?? []),
-					],
-				},
-			})),
-		},
 		{
 			prefix: 't',
 			items: await Promise.all(

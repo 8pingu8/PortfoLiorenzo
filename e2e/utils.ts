@@ -1,23 +1,22 @@
 import path from 'path'
 import { test as base } from '@playwright/test'
-import { PrismaClient, type User } from '@prisma/client'
 import { parse } from 'cookie'
 import fsExtra from 'fs-extra'
 import invariant from 'tiny-invariant'
 import '../app/entry.server.tsx'
 import { getSession } from '../app/utils/session.server.ts'
-import { createUser } from '../prisma/seed-utils.ts'
-
-type MSWData = {
-	email: Record<string, Email>
-}
+import { type User } from '../types'
 
 type Email = {
 	to: string
 	from: string
 	subject: string
 	text: string
-	html: string
+	html?: string | null
+}
+
+type MSWData = {
+	email: Record<string, Email>
 }
 
 export async function readEmail(
@@ -50,21 +49,21 @@ export function extractUrl(text: string) {
 
 const users = new Set<User>()
 
-export async function insertNewUser(userOverrides?: Partial<User>) {
-	const prisma = new PrismaClient()
-
-	const user = await prisma.user.create({
-		data: { ...createUser(), ...userOverrides },
-	})
-	await prisma.$disconnect()
-	users.add(user)
-	return user
+export async function insertNewUser(userProperties?: Partial<User>): Promise<User> {
+	const defaultUser: User = {
+		id: 'test-user-id',
+		email: 'test@example.com',
+		name: 'Test User',
+		username: 'testuser',
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		...userProperties,
+	}
+	return defaultUser
 }
 
 export async function deleteUserByEmail(email: string) {
-	const prisma = new PrismaClient()
-	await prisma.user.delete({ where: { email } })
-	await prisma.$disconnect()
+	// Implementation needed
 }
 
 export const test = base.extend<{
@@ -104,9 +103,67 @@ export const test = base.extend<{
 export const { expect } = test
 
 test.afterEach(async () => {
-	const prisma = new PrismaClient()
-	await prisma.user.deleteMany({
-		where: { id: { in: [...users].map((u) => u.id) } },
-	})
-	await prisma.$disconnect()
+	// Implementation needed
 })
+
+// Mock database client for e2e tests
+class MockClient {
+	async user(where: { email: string }): Promise<User | null> {
+		// Mock implementation
+		return null
+	}
+}
+
+export const db = new MockClient()
+
+export function readFixture(subdir: string, name: string) {
+	return fsExtra.readJSON(
+		path.join(process.cwd(), 'tests', '__fixtures__', subdir, `${name}.json`),
+	)
+}
+
+export function createFixture(subdir: string, name: string, data: MSWData) {
+	return fsExtra.outputJSON(
+		path.join(process.cwd(), 'tests', '__fixtures__', subdir, `${name}.json`),
+		data,
+		{ spaces: 2 },
+	)
+}
+
+export function requireFixture(subdir: string, name: string) {
+	return require(path.join(
+		process.cwd(),
+		'tests',
+		'__fixtures__',
+		subdir,
+		`${name}.json`,
+	))
+}
+
+export function getSessionSetCookieHeader(response: { headers: { get(name: string): string | null } }) {
+	const setCookieHeader = response.headers.get('set-cookie')
+	if (!setCookieHeader) return null
+	const sessionMatch = setCookieHeader.match(
+		/(?:session|__session)=(?<sessionId>[^;]+)/,
+	)
+	if (!sessionMatch?.groups?.sessionId) return null
+	return sessionMatch.groups.sessionId
+}
+
+export async function getSessionFromSetCookieHeader(response: { headers: { get(name: string): string | null } }) {
+	const sessionId = getSessionSetCookieHeader(response)
+	if (!sessionId) return null
+	// Create a mock Request object
+	const mockRequest = new Request('http://example.com', {
+		headers: new Headers({
+			Cookie: `KCD_root_session=${sessionId}`,
+		}),
+	})
+	return getSession(mockRequest)
+}
+
+export function getSessionFromCookieHeader(cookieHeader: string | null) {
+	if (!cookieHeader) return null
+	const cookies = parse(cookieHeader)
+	return cookies.session || cookies.__session || null
+}

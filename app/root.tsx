@@ -45,7 +45,6 @@ import vendorStyles from './styles/vendors.css?url'
 import { ClientHintCheck, getHints } from './utils/client-hints.tsx'
 import { getClientSession } from './utils/client.server.ts'
 import { getEnv } from './utils/env.server.ts'
-import { getLoginInfoSession } from './utils/login.server.ts'
 import {
 	getDisplayUrl,
 	getDomainUrl,
@@ -129,19 +128,7 @@ export const links: LinksFunction = () => {
 export async function loader({ request }: LoaderFunctionArgs) {
 	const timings = {}
 	const session = await getSession(request)
-	const [
-		user,
-		clientSession,
-		loginInfoSession,
-		//workshops,
-		//workshopEvents,
-	] = await Promise.all([
-		session.getUser({ timings }),
-		getClientSession(request, session.getUser({ timings })),
-		getLoginInfoSession(request),
-		//getWorkshops({ request, timings }),
-		//getScheduledEvents({ request, timings }),
-	])
+	const clientSession = await getClientSession(request, null)
 
 	const randomFooterImageKeys = Object.keys(illustrationImages)
 	const randomFooterImageKey = randomFooterImageKeys[
@@ -149,8 +136,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 	] as keyof typeof illustrationImages
 
 	const data = {
-		user,
-		userInfo: user ? await getUserInfo(user, { request, timings }) : null,
 		ENV: getEnv(),
 		randomFooterImageKey,
 		requestInfo: {
@@ -160,21 +145,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
 			userPrefs: {
 				theme: getTheme(request),
 			},
-			session: {
-				email: loginInfoSession.getEmail(),
-				magicLinkVerified: loginInfoSession.getMagicLinkVerified(),
-			},
 		},
 	}
 
 	const headers: HeadersInit = new Headers()
-	// this can lead to race conditions if a child route is also trying to commit
-	// the cookie as well. This is a bug in remix that will hopefully be fixed.
-	// we reduce the likelihood of a problem by only committing if the value is
-	// different.
 	await session.getHeaders(headers)
 	await clientSession.getHeaders(headers)
-	await loginInfoSession.getHeaders(headers)
 	headers.append('Server-Timing', getServerTimeHeader(timings))
 
 	return json(data, { headers })

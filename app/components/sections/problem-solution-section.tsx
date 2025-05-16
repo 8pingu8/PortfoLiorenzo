@@ -88,186 +88,169 @@ function ContentPanel({
 	)
 }
 
-function ProblemSolutionSection({
-	blogPostCount,
-	totalBlogReaders,
-	totalBlogReads,
-	currentBlogLeaderTeam,
-}: {
-	blogPostCount: string
-	totalBlogReaders: string
-	totalBlogReads: string
-	currentBlogLeaderTeam: Team | undefined
-}) {
-	const [activeTabIndex, setActiveTabIndex] = React.useState(0)
+interface ProblemSolutionProps {
+	workshopCount: string
+	workshopStudents: string
+	discordMembers: string
+	discordMemberPercentage: string
+	currentDiscordLeaderTeam: Team | undefined
+	callCount: string
+	callMinutes: string
+	currentCallLeaderTeam: Team | undefined
+	talkCount: string
+	talkAttendees: string
+	currentTalkLeaderTeam: Team | undefined
+}
 
+function ProblemSolution({
+	workshopCount,
+	workshopStudents,
+	discordMembers,
+	discordMemberPercentage,
+	currentDiscordLeaderTeam,
+	callCount,
+	callMinutes,
+	currentCallLeaderTeam,
+	talkCount,
+	talkAttendees,
+	currentTalkLeaderTeam,
+}: ProblemSolutionProps) {
 	return (
-		<Tabs as={Grid} featured onChange={(index) => setActiveTabIndex(index)}>
-			<div className="col-span-full lg:col-span-5">
-				<H2 className="mb-4 lg:mb-0">
-					Having a hard time keeping up with JavaScript?
+		<Grid>
+			<div className="col-span-full mb-12 lg:mb-20">
+				<H2 className="mb-4 lg:mb-6">How I can help you</H2>
+				<H2 as="p" variant="secondary" className="mb-8">
+					I've got several resources to help you level up your skills
 				</H2>
-			</div>
-			<div className="col-span-full lg:col-span-5 lg:col-start-7">
-				<H2 variant="secondary" as="p">
-					{`
-            Well, you're in the right place. My website is your one stop shop
-            for everything you need to build JavaScript apps.
-          `}
-				</H2>
+				<Paragraph className="mb-8">
+					I'm here to help you become a more effective engineer. Here are some ways
+					I can help you do that:
+				</Paragraph>
 			</div>
 
-			<hr className="col-span-full mb-10 mt-16 border-gray-200 dark:border-gray-600 lg:mb-20 lg:mt-24" />
+			<TabList className="col-span-full mb-20">
+				<Tab>workshops</Tab>
+				<Tab>discord</Tab>
+				<Tab>calls</Tab>
+				<Tab>talks</Tab>
+			</TabList>
 
-			<div className="order-1 col-span-full col-start-1 lg:order-3 lg:col-span-5 lg:mt-52 lg:pt-2">
-				<TabList className="inline-flex flex-row space-x-8 bg-transparent text-xl leading-snug text-white lg:flex-col lg:space-x-0 lg:text-7xl">
-					<Tab>blog</Tab>
-					<Tab>courses</Tab>
-					<Tab>podcasts</Tab>
-				</TabList>
-			</div>
-
-			<TabPanels className="order-4 col-span-full mt-16 grid lg:col-span-5 lg:col-start-7 lg:mt-0">
-				<ContentPanel active={activeTabIndex === 0} imageBuilder={images.skis}>
-					<H3>Educational blog</H3>
-
+			<TabPanels className="col-span-full">
+				<TabPanel>
+					<H3>Live workshops</H3>
 					<Paragraph className="mt-8">
-						{`My `}
-						<strong>{blogPostCount}</strong>
-						{` blog posts (and counting) have been `}
-						<Link prefetch="intent" to="/teams#read-rankings">
-							read
-						</Link>
-						{` ${totalBlogReads} times by ${totalBlogReaders} people. There you'll find blogs about `}
-						<Link prefetch="intent" to="/blog?q=javascript">
-							JavaScript
-						</Link>
-						{`, `}
-						<Link prefetch="intent" to="/blog?q=typescript">
-							TypeScript
-						</Link>
-						{`, `}
-						<Link prefetch="intent" to="/blog?q=react">
-							React
-						</Link>
-						{`, `}
-						<Link prefetch="intent" to="/blog?q=testing">
-							Testing
-						</Link>
-						{`, `}
-						<Link prefetch="intent" to="/blog?q=career">
-							your career
-						</Link>
-						{`, `}
-						<Link prefetch="intent" to="/blog">
-							and more
-						</Link>
-						.
+						<strong>{workshopCount}</strong>
+						{` workshops have helped `}
+						<strong>{workshopStudents}</strong>
+						{` engineers level up their skills in React, Testing, and Web
+						Development in general. These workshops are `}
+						<strong>live</strong>
+						{` and `}
+						<strong>remote</strong>
+						{` so you can improve your skills from anywhere in the world.`}
 					</Paragraph>
-					{currentBlogLeaderTeam ? (
-						<Paragraph
-							prose={false}
-							textColorClassName={teamTextColorClasses[currentBlogLeaderTeam]}
-						>
-							{`The `}
-							<Link
-								to="/teams"
-								className={`${teamTextColorClasses[currentBlogLeaderTeam]} underlined`}
-							>
-								<strong>{currentBlogLeaderTeam.toLowerCase()}</strong>
-							</Link>
-							{` team is winning.`}
-						</Paragraph>
-					) : null}
-
-					<ArrowLink to="/blog" className="mt-14">
-						Start reading the blog
+					<ArrowLink to="/workshops" className="mt-14">
+						Check out upcoming workshops
 					</ArrowLink>
-				</ContentPanel>
+				</TabPanel>
 
-				<ContentPanel
-					active={activeTabIndex === 1}
-					imageBuilder={images.onewheel}
-				>
-					<H3>Courses</H3>
-
+				<TabPanel>
+					<H3>Discord Community</H3>
 					<Paragraph className="mt-8">
-						{`
-              I've been teaching people just like you how to build better
-              software for over ${differenceInYears(
-								Date.now(),
-								new Date(2014, 0, 0),
-							)}
-              years. Tens of thousands of people have increased their confidence
-              in shipping software with
-            `}
-						<a
-							href="https://testingjavascript.com"
-							className="!text-yellow-500"
-						>
-							TestingJavaScript.com
-						</a>
-						{`
-              and even more have improved the performance and maintainability
-              of their React applications from what they've learned from
-            `}
-						<a href="https://epicreact.dev" className="!text-blue-500">
-							EpicReact.dev
-						</a>
-						{`. My latest efforts are pushing things to the whole stack with `}
-						<a href="https://www.epicstack.dev" className="!text-red-500">
-							EpicWeb.dev
-						</a>
-						.
+						<strong>{discordMembers}</strong>
+						{` engineers hang out in my discord community to learn together. `}
+						<strong>{discordMemberPercentage}</strong>
+						{` of them are active every week.`}
+						{currentDiscordLeaderTeam ? (
+							<>
+								{' The '}
+								<span
+									className={`${
+										teamTextColorClasses[currentDiscordLeaderTeam]
+									}`}
+								>
+									<Link
+										to="/teams"
+										className="underlined"
+									>
+										<strong>{currentDiscordLeaderTeam.toLowerCase()}</strong>
+									</Link>
+								</span>
+								{' team is currently in the lead.'}
+							</>
+						) : null}
 					</Paragraph>
-
-					<ArrowLink to="/courses" className="mt-14">
-						Explore the courses
+					<ArrowLink to="/discord" className="mt-14">
+						Join the discord community
 					</ArrowLink>
-				</ContentPanel>
+				</TabPanel>
 
-				<ContentPanel active={activeTabIndex === 2} imageBuilder={images.kayak}>
-					<H3>Podcast</H3>
-
+				<TabPanel>
+					<H3>Office Hours</H3>
 					<Paragraph className="mt-8">
-						{`
-              I really enjoy chatting with people about software development and
-              life as a software developer. So I have several podcasts for you
-              to enjoy like
-            `}
-						<Link prefetch="intent" to="/chats">
-							Chats with Kent
-						</Link>
-						{`, `}
-						<Link prefetch="intent" to="/calls">
-							Call Kent
-						</Link>
-						{`, and `}
-						<a href="https://epicreact.dev/podcast">
-							the EpicReact.dev podcast
-						</a>
-						.
+						<strong>{callCount}</strong>
+						{` calls have been made for a total of `}
+						<strong>{callMinutes}</strong>
+						{` minutes of conversations with engineers from all over the world
+						about React, Testing, and Web Development in general.`}
+						{currentCallLeaderTeam ? (
+							<>
+								{' The '}
+								<span
+									className={`${
+										teamTextColorClasses[currentCallLeaderTeam]
+									}`}
+								>
+									<Link
+										to="/teams"
+										className="underlined"
+									>
+										<strong>{currentCallLeaderTeam.toLowerCase()}</strong>
+									</Link>
+								</span>
+								{' team is currently in the lead.'}
+							</>
+						) : null}
 					</Paragraph>
-
-					<Paragraph>
-						{`
-              I've also had the pleasure to be a guest on many other podcasts
-              where I've been able to share my thoughts on webdev. You can find
-              those on my
-            `}
-						<Link prefetch="intent" to="/appearances">
-							appearances
-						</Link>
-						{` page.`}
-					</Paragraph>
-
-					<ArrowLink to="/chats" className="mt-14">
-						Start listening to chats with Kent
+					<ArrowLink to="/calls" className="mt-14">
+						Schedule a call
 					</ArrowLink>
-				</ContentPanel>
+				</TabPanel>
+
+				<TabPanel>
+					<H3>Conference Talks</H3>
+					<Paragraph className="mt-8">
+						<strong>{talkCount}</strong>
+						{` talks have been given to `}
+						<strong>{talkAttendees}</strong>
+						{` people at conferences all over the world about React, Testing, and
+						Web Development in general.`}
+						{currentTalkLeaderTeam ? (
+							<>
+								{' The '}
+								<span
+									className={`${
+										teamTextColorClasses[currentTalkLeaderTeam]
+									}`}
+								>
+									<Link
+										to="/teams"
+										className="underlined"
+									>
+										<strong>{currentTalkLeaderTeam.toLowerCase()}</strong>
+									</Link>
+								</span>
+								{' team is currently in the lead.'}
+							</>
+						) : null}
+					</Paragraph>
+					<ArrowLink to="/talks" className="mt-14">
+						Watch talks
+					</ArrowLink>
+				</TabPanel>
 			</TabPanels>
-		</Tabs>
+		</Grid>
 	)
 }
 
-export { ProblemSolutionSection }
+export { ProblemSolution }

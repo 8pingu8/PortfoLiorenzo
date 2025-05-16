@@ -2,11 +2,7 @@ import path from 'path'
 import { type ActionFunctionArgs, json, redirect } from '@remix-run/node'
 import { cache } from '#app/utils/cache.server.ts'
 import { getPeople } from '#app/utils/credits.server.ts'
-import {
-	getBlogMdxListItems,
-	getMdxDirList,
-	getMdxPage,
-} from '#app/utils/mdx.server.ts'
+
 import { getRequiredServerEnvVar } from '#app/utils/misc.tsx'
 import { getTalksAndTags } from '#app/utils/talks.server.ts'
 import { getTestimonials } from '#app/utils/testimonials.server.ts'
@@ -86,7 +82,7 @@ export async function action({ request }: ActionFunctionArgs) {
 				const slug = path.parse(dirOrFilename).name
 
 				refreshingContentPaths.push(contentPath)
-				promises.push(getMdxPage({ contentDir, slug }, { forceFresh: true }))
+				//promises.push(getMdxPage({ contentDir, slug }, { forceFresh: true }))
 			}
 			if (contentPath.startsWith('workshops')) {
 				refreshingContentPaths.push(contentPath)
@@ -108,17 +104,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 		// if any blog contentPaths were changed then let's update the dir list
 		// so it will appear on the blog page.
-		if (refreshingContentPaths.some((p) => p.startsWith('blog'))) {
-			promises.push(
-				getBlogMdxListItems({
-					request,
-					forceFresh: 'blog:dir-list,blog:mdx-list-items',
-				}),
-			)
-		}
-		if (refreshingContentPaths.some((p) => p.startsWith('pages'))) {
-			promises.push(getMdxDirList('pages', { forceFresh: true }))
-		}
+		
 
 		if (promises.length) {
 			await Promise.all(promises)

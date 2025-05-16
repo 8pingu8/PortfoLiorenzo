@@ -3,11 +3,10 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import { addSubscriberToForm } from '#app/kit/kit.server.js'
 import { cache, cachified } from '#app/utils/cache.server.js'
-import { downloadMdxFilesCached } from '#app/utils/mdx.server.js'
+//import { downloadMdxFilesCached } from '#app/utils/mdx.server.js'
 import { getDomainUrl, getErrorMessage } from '#app/utils/misc.js'
 import { searchKCD } from '#app/utils/search.server.js'
 import { getSeasons as getChatsWithKentSeasons } from '#app/utils/simplecast.server.js'
-import { isEmailVerified } from '#app/utils/verifier.server.js'
 import { FetchSSEServerTransport } from './fetch-transport.server'
 
 export const requestStorage = new AsyncLocalStorage<Request>()
@@ -95,7 +94,7 @@ function createServer() {
 		},
 	)
 
-	server.tool(
+	/*server.tool(
 		'get_blog_post',
 		'Get the content of a specific blog post by its slug',
 		{ slug: z.string().describe('The slug of the blog post to retrieve') },
@@ -120,7 +119,7 @@ function createServer() {
 				),
 			}
 		},
-	)
+	)*/
 
 	server.tool(
 		'get_chats_with_kent_episode_details',
@@ -197,14 +196,6 @@ function createServer() {
 				}
 			}
 
-			const isVerified = await isEmailVerified(email)
-			if (!isVerified.verified) {
-				return {
-					isError: true,
-					content: [{ type: 'text', text: isVerified.message }],
-				}
-			}
-
 			try {
 				await addSubscriberToForm({
 					email,
@@ -220,7 +211,7 @@ function createServer() {
 						},
 					],
 				}
-			} catch (error) {
+			} catch (error: unknown) {
 				return {
 					isError: true,
 					content: [

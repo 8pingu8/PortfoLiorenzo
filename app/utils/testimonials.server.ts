@@ -17,7 +17,6 @@ const allCategories = [
 	'podcast',
 	'youtube',
 	'talk',
-	'blog',
 	'remix',
 ] as const
 export type TestimonialCategory = (typeof allCategories)[number]
@@ -33,7 +32,6 @@ const allSubjects = [
 	'YouTube Live Streams',
 	'KCD Office Hours',
 	'Talk',
-	'Blog',
 	'Frontend Masters',
 	'Egghead.io',
 	'workshop: react-fundamentals',
@@ -81,7 +79,6 @@ const categoriesBySubject: Record<
 	'YouTube Live Streams': ['youtube'],
 	'KCD Office Hours': ['youtube'],
 	Talk: ['talk'],
-	Blog: ['blog'],
 	'Frontend Masters': ['courses'],
 	'Egghead.io': ['courses'],
 	'workshop: react-fundamentals': ['workshop', 'react'],
@@ -296,5 +293,32 @@ async function getTestimonials({
 	}
 	return finalTestimonials.map(mapOutMetadata)
 }
+
+const categories = [
+	'teaching',
+	'community',
+	'innovation',
+	'courses',
+	'workshops',
+	'talks',
+] as const
+
+const categoryLabels = {
+	teaching: 'Teaching',
+	community: 'Community',
+	innovation: 'Innovation',
+	courses: 'Courses',
+	workshops: 'Workshops',
+	talks: 'Talks',
+} as const
+
+const categoryToTeams = {
+	teaching: ['teaching'],
+	community: ['community'],
+	innovation: ['innovation'],
+	courses: ['courses'],
+	workshops: ['workshops'],
+	talks: ['talks'],
+} as const
 
 export { getTestimonials }
