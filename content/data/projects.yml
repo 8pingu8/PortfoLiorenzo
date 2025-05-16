@@ -73,41 +73,66 @@
   links:
     itch: "https://yourbro.itch.io/connection-lost"
     github: "https://github.com/yourbro/connection-lost"
-  model: "/models/pipebot.glb"
+  model: "/models/Pipe.glb"
   date: "March 2025 - May 2025"
   emoji: "🔌"
 
-- title: "Awesome Game 2"
-  slug: "awesome-game2"
-  description: "A 2D platformer with unique mechanics."
-  longDescription: "This is a longer description for Awesome Game 2. It goes into more detail about the gameplay, development process, and unique features."
-  cover_image: "/images/awesome-game/cover.jpg"
-  images:
-    - "/images/awesome-game/screenshot1.png"
-    - "/images/awesome-game/screenshot2.gif"
-  video: "/videos/awesome-game/trailer.mp4"
-  tags: ["Unity", "C#", "Platformer"]
-  links:
-    github: "https://github.com/yourbro/awesome-game"
-    itch: "https://yourbro.itch.io/awesome-game"
-    website: "https://awesomegame.com" 
-  model: sphere
-  date: "March 2025 - May 2025"
-  emoji: "🎲"
+- title: "Space Hell"
+  slug: "space-hell"
+  description: "A story-driven 2D game developed during STEMdays 2024, following Aurora, a space academy cadet who crash-lands on an alien planet. Through a series of minigames and meaningful interactions, she turns an initial rivalry into friendship while learning about herself and others."
+  longDescription: |
+    # Game Concept
+    Space Hell is an educational game project developed during STEMdays 2024, a summer camp focused on girls' empowerment in STEM fields. The game follows Aurora, a young space academy cadet who crash-lands on an alien planet during her final exam. What starts as a seemingly hostile situation evolves into a heartwarming story of friendship and growth through gameplay and dialogue.
 
-- title: "Awesome Game 3"
-  slug: "awesome-game3"
-  description: "A 2D platformer with unique mechanics."
-  longDescription: "This is a longer description for Awesome Game 3. It goes into more detail about the gameplay, development process, and unique features."
-  cover_image: "/images/awesome-game/cover.jpg"
+    ## Key Features
+    - Story-driven gameplay with extensive dialogue system
+    - Multiple unique minigames with different mechanics
+    - Character development and relationship building
+    - Complete narrative arc from start to finish
+    - Educational value in both story and development process
+
+    ## Technical Implementation
+    As the project lead and mentor, I (with the help of my team) guided a team of 4 girls through their first game development experience:
+
+    - ### Core Systems
+      - **Dialogue System**: Implemented a flexible dialogue system to tell Aurora's story
+      - **Minigame Framework**: Created a modular system allowing different gameplay mechanics for each minigame
+      - **Scene Management**: Built a robust scene transition system to tie the experience together
+
+    - ### Technical Stack
+      - **Engine**: Godot Engine
+      - **Language**: GDScript
+      - **Key Features**: 2D graphics, Dialogue system, Multiple gameplay mechanics, Scene management
+
+    ## Educational Leadership
+    This project was particularly special as it combined game development with educational mentorship:
+
+    - ### Teaching Highlights
+      - Introduced complete beginners to game development concepts
+      - Guided students through the entire development process
+      - Ensured each team member could contribute meaningfully
+      - Balanced learning objectives with project completion goals
+
+    - ### Project Management
+      - Structured the 4-day development timeline effectively
+      - Divided tasks based on individual interests and abilities
+      - Maintained team motivation and engagement
+      - Successfully delivered a complete game within the time constraint
+
+    The project's success is measured not just in the final product, but in the educational impact and confidence built in the participating students. We achieved our goal of creating a complete game from concept to completion in just 4 days, while ensuring every team member learned and contributed to the final product.
+  cover_image: "/images/space-hell/cover.jpg"
   images:
-    - "/images/awesome-game/screenshot1.png"
-    - "/images/awesome-game/screenshot2.gif"
-  video: "/videos/awesome-game/trailer.mp4"
-  tags: ["Unity", "C#", "Platformer"]
+    - "/pics/space-hell/SpaceHellMenu.png"
+    - "/pics/space-hell/SpaceHell1.png"
+    - "/pics/space-hell/SpaceHellGif1.gif"
+    - "/pics/space-hell/SpaceHellGif2.gif"
+    - "/pics/space-hell/SpaceHellGif3.gif"
+  video: "/pics/space-hell/SpaceHellClip.mp4"
+  tags: ["Godot", "GDScript", "2D Game", "Educational", "Story-Driven", "Team Lead", "Mentorship", "STEMdays 2024"]
   links:
-    github: "https://github.com/yourbro/awesome-game"
-    itch: "https://yourbro.itch.io/awesome-game"
-    website: "https://awesomegame.com" 
-  date: "March 2025 - May 2025"
-  emoji: "🎯" 
+    itch: "https://yourbro.itch.io/space-hell"
+    github: "https://github.com/yourbro/space-hell"
+  model: "/models/Aurora.glb"
+  date: "June 2024 - 4 days"
+  emoji: "🚀"
+
