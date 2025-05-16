@@ -1,8 +1,9 @@
 import * as YAML from 'yaml'
 import { cachified } from '@epic-web/cachified'
-import { cache, shouldForceFresh } from './cache.server.ts'
-import { downloadFile } from './github.server.ts'
+import { cache } from './cache.server.ts'
 import { typedBoolean } from './misc.tsx'
+import fs from 'fs'
+import path from 'path'
 
 export type Project = {
   title: string
@@ -27,26 +28,29 @@ export async function getProjects({
   request?: Request
   forceFresh?: boolean
 } = {}) {
-  const key = 'content:data:projects.yml'
+  const key = 'content:data:projects'
   const isDev = process.env.NODE_ENV === 'development'
-  const allProjects = await cachified({
+
+  return cachified({
     key,
     cache,
-    forceFresh: isDev ? true : await shouldForceFresh({ forceFresh, request, key }),
-    ttl: isDev ? 0 : 1000 * 60 * 60 * 24 * 30,
-    staleWhileRevalidate: isDev ? 0 : 1000 * 60 * 60 * 24,
+    forceFresh: isDev || forceFresh,
+    ttl: isDev ? 0 : 1000 * 60 * 60, // 1 hour in production
+    staleWhileRevalidate: isDev ? 0 : 1000 * 60 * 5, // 5 minutes in production
     getFreshValue: async () => {
-      const projectsString = await downloadFile('content/data/projects.yml')
+      const projectsPath = path.join(process.cwd(), 'content', 'data', 'projects.yml')
+      const projectsString = fs.readFileSync(projectsPath, 'utf-8')
       const rawProjects = YAML.parse(projectsString)
+      
       if (!Array.isArray(rawProjects)) {
         console.error('Projects is not an array', rawProjects)
         throw new Error('Projects is not an array.')
       }
+      
       return rawProjects.filter(typedBoolean)
     },
     checkValue: (value: unknown) => Array.isArray(value),
-  })
-  return allProjects as Project[]
+  }) as Promise<Project[]>
 }
 
 export async function getProjectBySlug(slug: string, opts: { request?: Request; forceFresh?: boolean } = {}) {

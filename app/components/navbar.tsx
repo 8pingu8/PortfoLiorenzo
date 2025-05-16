@@ -14,12 +14,12 @@ import { LaptopIcon, MoonIcon, SunIcon } from './icons.tsx'
 import { TeamCircle } from './team-circle.tsx'
 
 const LINKS = [
-	{ name: 'Bio', to: '/bio' },
+	{ name: 'Bio', to: '/' },
 	{ name: 'Portfolio', to: '/projects' },
 ]
 
 const MOBILE_LINKS = [
-	{ name: 'Bio', to: '/bio' },
+	{ name: 'Bio', to: '/' },
 	{ name: 'Portfolio', to: '/projects' }
 ]
 
@@ -30,7 +30,7 @@ function NavLink({
 	const location = useLocation()
 	const isSelected =
 		(to === '/projects' && location.pathname === '/projects') ||
-		(to === '/bio' && location.pathname === '/bio')
+		(to === '/' && location.pathname === '/')
 
 	return (
 		<li className="px-5 py-2">
@@ -60,7 +60,7 @@ function DarkModeToggle({
 	const fetcher = useFetcher({ key: THEME_FETCHER_KEY })
 
 	const optimisticMode = useOptimisticThemeMode()
-	const mode = optimisticMode ?? requestInfo.userPrefs.theme ?? 'system'
+	const mode = optimisticMode ?? requestInfo.userPrefs.theme ?? 'dark'
 	const nextMode =
 		mode === 'system' ? 'light' : mode === 'light' ? 'dark' : 'system'
 
@@ -285,7 +285,7 @@ function Navbar() {
 				<div className="flex justify-center gap-4 align-middle">
 					<Link
 						prefetch="intent"
-						to="/bio"
+						to="/"
 						className="text-primary block whitespace-nowrap text-2xl font-medium transition focus:outline-none underlined"
 					>
 						<h1>Lorenzo Jacopo Avalle</h1>

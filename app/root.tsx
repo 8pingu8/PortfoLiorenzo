@@ -133,14 +133,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 		user,
 		clientSession,
 		loginInfoSession,
-		workshops,
-		workshopEvents,
+		//workshops,
+		//workshopEvents,
 	] = await Promise.all([
 		session.getUser({ timings }),
 		getClientSession(request, session.getUser({ timings })),
 		getLoginInfoSession(request),
-		getWorkshops({ request, timings }),
-		getScheduledEvents({ request, timings }),
+		//getWorkshops({ request, timings }),
+		//getScheduledEvents({ request, timings }),
 	])
 
 	const randomFooterImageKeys = Object.keys(illustrationImages)

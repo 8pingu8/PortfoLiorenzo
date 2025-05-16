@@ -215,7 +215,7 @@ export default function ProjectDetailPage() {
                   video.playbackRate = 2.0;
                 }}
               >
-                <source src={project.video} type="video/quicktime" />
+                <source src={project.video} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>

@@ -68,13 +68,13 @@
     - "/pics/connection-lost/ConnectionLostShoot2.png"
     - "/pics/connection-lost/ConnectionLostJSON.png"
     - "/pics/connection-lost/ConnectionLostJSONdocs.png"
-  video: "/pics/connection-lost/connectionlostclip.mov"
+  video: "/pics/connection-lost/connectionLostClip.mp4"
   tags: ["Unreal Engine 5", "C++", "3D Game", "Puzzle", "First Person", "Team Lead", "Project Management"]
   links:
     itch: "https://yourbro.itch.io/connection-lost"
     github: "https://github.com/yourbro/connection-lost"
   model: "/models/pipebot.glb"
-  date: "2024"
+  date: "March 2025 - May 2025"
   emoji: "🔌"
 
 - title: "Awesome Game 2"
