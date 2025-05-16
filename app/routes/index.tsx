@@ -53,8 +53,8 @@ const funFacts = [
 	'Can cook a fantastic pizza',
 	'Monster Energy enthusiast',
 	'Speak 3 languages',
-	'pro Clarinet player',
-	'always with a new project in my mind'
+	'Pro Clarinet player',
+	'Always with a new project in my mind'
 ]
 
 export default function Index() {
@@ -120,14 +120,14 @@ export default function Index() {
 					<h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-12 text-center">Skills & Expertise</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
 						{/* First skill - larger and centered */}
-						{skills.length > 0 && (
+						{skills.length > 0 && skills[0] && (
 							<motion.div
 								key={skills[0].name}
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.5 }}
 								whileHover={{ scale: 1.05 }}
-								onHoverStart={() => setHoveredSkill(skills[0].name)}
+								onHoverStart={() => setHoveredSkill(skills[0]?.name || null)}
 								onHoverEnd={() => setHoveredSkill(null)}
 								className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-2xl p-8 ring-2 ring-inset ring-gray-200/50 dark:ring-gray-700/50 shadow-lg md:col-span-2 lg:col-span-3 max-w-2xl mx-auto"
 							>
@@ -199,6 +199,27 @@ export default function Index() {
 							</motion.div>
 						))}
 					</div>
+				</div>
+			</Grid>
+
+			{/* Fun Facts Section - Floating Cards */}
+			<Grid className="mb-24">
+				<div className="col-span-full">
+				<h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-12 text-center">Fun Facts</h2>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
+					{funFacts.map((fact, index) => (
+					<motion.div
+						key={index}
+						initial={{ opacity: 0, scale: 0.9 }}
+						whileInView={{ opacity: 1, scale: 1 }}
+						transition={{ duration: 0.5, delay: index * 0.1 }}
+						whileHover={{ scale: 1.05 }}
+						className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-2xl p-6 text-center ring-2 ring-inset ring-gray-200/50 dark:ring-gray-700/50 shadow-lg"
+					>
+						<p className="text-lg text-gray-700 dark:text-gray-300">{fact}</p>
+					</motion.div>
+					))}
+				</div>
 				</div>
 			</Grid>
 		</>
