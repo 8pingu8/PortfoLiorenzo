@@ -191,9 +191,9 @@ function MobileMenu() {
 							{link.name}
 						</Link>
 					))}
-					<div className="py-9 text-center">
+					{/*<div className="py-9 text-center">
 						<DarkModeToggle variant="labelled" />
-					</div>
+					</div>*/}
 				</div>
 			</div>
 		</div>
