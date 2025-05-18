@@ -66,8 +66,8 @@
     - "/pics/connection-lost/ConnectionLostShoot1.png"
     - "/pics/connection-lost/mechanicsshort.gif"
     - "/pics/connection-lost/ConnectionLostShoot2.png"
-    - "/pics/connection-lost/ConnectionLostJSON.png"
-    - "/pics/connection-lost/ConnectionLostJSONdocs.png"
+    - "/pics/connection-lost/connectionlostJSON.png"
+    - "/pics/connection-lost/connectionlostJSONdocs.png"
   video: "/pics/connection-lost/connectionLostClip.mp4"
   tags: ["Unreal Engine 5", "C++", "3D Game", "Puzzle", "First Person", "Team Lead", "Project Management"]
 #  links:
