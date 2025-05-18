@@ -70,9 +70,9 @@
     - "/pics/connection-lost/ConnectionLostJSONdocs.png"
   video: "/pics/connection-lost/connectionLostClip.mp4"
   tags: ["Unreal Engine 5", "C++", "3D Game", "Puzzle", "First Person", "Team Lead", "Project Management"]
-  links:
-    itch: "https://yourbro.itch.io/connection-lost"
-    github: "https://github.com/yourbro/connection-lost"
+#  links:
+#    itch: "https://yourbro.itch.io/connection-lost"
+#    github: "https://github.com/yourbro/connection-lost"
   model: "/models/Pipe.glb"
   date: "March 2025 - May 2025"
   emoji: "🔌"
@@ -129,9 +129,9 @@
     - "/pics/space-hell/SpaceHellGif3.gif"
   video: "/pics/space-hell/SpaceHellClip.mp4"
   tags: ["Godot", "GDScript", "2D Game", "Educational", "Story-Driven", "Team Lead", "Mentorship", "STEMdays 2024"]
-  links:
-    itch: "https://yourbro.itch.io/space-hell"
-    github: "https://github.com/yourbro/space-hell"
+#  links:
+#    itch: "https://yourbro.itch.io/space-hell"
+#    github: "https://github.com/yourbro/space-hell"
   model: "/models/Aurora.glb"
   date: "June 2024 - 4 days"
   emoji: "🚀"

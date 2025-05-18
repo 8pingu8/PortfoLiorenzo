@@ -12,7 +12,8 @@ const externalLinks = {
 	discord: 'https://kcd.im/discord',
 	translationContributions:
 		'https://github.com/kentcdodds/kentcdodds.com/blob/main/CONTRIBUTING.md#translation-contributions',
-	github: 'https://github.com/kentcdodds',
+	github: 'https://github.com/8pingu8',
+	linkedin: 'https://www.linkedin.com/in/lorenzo-jacopo-avalle-a948a5159',
 	youtube: 'https://youtube.com/c/KentCDodds-vids/videos',
 	twitter: 'https://x.com/kentcdodds',
 	x: 'https://x.com/kentcdodds',

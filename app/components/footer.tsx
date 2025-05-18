@@ -2,7 +2,7 @@ import { Link } from '@remix-run/react'
 import { AnchorOrLink } from '#app/utils/misc.tsx'
 import { externalLinks } from '../external-links.tsx'
 import { IconLink } from './icon-link.tsx'
-import { GithubIcon, XIcon, YoutubeIcon } from './icons.tsx'
+import { GithubIcon, XIcon, YoutubeIcon, LinkedInIcon } from './icons.tsx'
 import { H4 } from './typography.tsx'
 
 function AboutSection() {
@@ -18,11 +18,8 @@ function AboutSection() {
 				<IconLink href={externalLinks.github}>
 					<GithubIcon size={32} />
 				</IconLink>
-				<IconLink href={externalLinks.youtube}>
-					<YoutubeIcon size={32} />
-				</IconLink>
-				<IconLink href={externalLinks.twitter}>
-					<XIcon size={32} />
+				<IconLink href={externalLinks.linkedin}>
+					<LinkedInIcon size={32} />
 				</IconLink>
 				<AnchorOrLink
 					href="mailto:lorenzo.avalle@gmail.com"

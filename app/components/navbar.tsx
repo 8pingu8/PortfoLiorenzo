@@ -312,9 +312,9 @@ function Navbar() {
 					<div className="block lg:hidden">
 						<MobileMenu />
 					</div>
-					<div className="noscript-hidden hidden lg:block">
+					{/*<div className="noscript-hidden hidden lg:block">
 						<DarkModeToggle />
-					</div>
+					</div>*/}
 
 					<ProfileButton
 						imageUrl={avatar.src}

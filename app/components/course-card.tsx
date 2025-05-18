@@ -69,7 +69,7 @@ function CourseCardLink({
 	return (
 		<motion.a
 			className={clsx(
-				'course-card-button-gradient inline-flex shrink-0 items-center justify-center gap-0.5 rounded-full border border-gray-300 bg-gray-100 text-gray-900 transition-all duration-300 hover:border-gray-500 hover:bg-white dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:border-slate-500',
+				'course-card-button-gradient inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full border border-gray-300 bg-gray-100 text-gray-900 transition-all duration-300 hover:border-gray-500 hover:bg-white dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:border-slate-500',
 				className,
 			)}
 			href={href}
@@ -84,11 +84,23 @@ function CourseCardLink({
 					textClassName,
 				)}
 			>
-				Check it out
+				View Details
 			</span>
 
 			<motion.span variants={shouldReduceMotion ? {} : arrowVariants}>
-				<ArrowIcon direction="top-right" className="shrink-0" size={24} />
+				<svg 
+					xmlns="http://www.w3.org/2000/svg" 
+					viewBox="0 0 24 24" 
+					fill="none" 
+					stroke="currentColor" 
+					strokeWidth="2" 
+					strokeLinecap="round" 
+					strokeLinejoin="round" 
+					className="shrink-0 w-5 h-5"
+				>
+					<circle cx="11" cy="11" r="8" />
+					<path d="m21 21-4.3-4.3" />
+				</svg>
 			</motion.span>
 		</motion.a>
 	)
