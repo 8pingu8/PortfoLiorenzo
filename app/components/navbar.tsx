@@ -10,23 +10,26 @@ import { useTeam } from '#app/utils/team-provider.tsx'
 import { THEME_FETCHER_KEY, useOptimisticThemeMode } from '#app/utils/theme.tsx'
 import { useRootData } from '#app/utils/use-root-data.ts'
 import { useElementState } from './hooks/use-element-state.tsx'
-import { LaptopIcon, MoonIcon, SunIcon } from './icons.tsx'
+import { LaptopIcon, MoonIcon, SunIcon, DownloadIcon } from './icons.tsx'
 import { TeamCircle } from './team-circle.tsx'
 
 const LINKS = [
 	{ name: 'Bio', to: '/' },
 	{ name: 'Portfolio', to: '/projects' },
+	{ name: 'CV', to: '/cv/CV_LJA_2025.pdf', download: true },
 ]
 
 const MOBILE_LINKS = [
 	{ name: 'Bio', to: '/' },
-	{ name: 'Portfolio', to: '/projects' }
+	{ name: 'Portfolio', to: '/projects' },
+	{ name: 'CV', to: '/cv/CV_LJA_2025.pdf', download: true },
 ]
 
 function NavLink({
 	to,
+	download,
 	...rest
-}: Omit<Parameters<typeof Link>['0'], 'to'> & { to: string }) {
+}: Omit<Parameters<typeof Link>['0'], 'to'> & { to: string; download?: boolean }) {
 	const location = useLocation()
 	const isSelected =
 		(to === '/projects' && location.pathname === '/projects') ||
@@ -34,18 +37,40 @@ function NavLink({
 
 	return (
 		<li className="px-5 py-2">
-			<Link
-				prefetch="intent"
-				className={clsx(
-					'block whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none underlined',
-					{
-						'text-team-current active': isSelected,
-						'text-secondary': !isSelected,
-					},
-				)}
-				to={to}
-				{...rest}
-			/>
+			{download ? (
+				<a
+					href={to}
+					download
+					className={clsx(
+						'block whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none underlined',
+						{
+							'text-team-current active': isSelected,
+							'text-secondary': !isSelected,
+						},
+					)}
+					{...rest}
+				>
+					<span className="flex items-center gap-2">
+						{rest.children}
+						<DownloadIcon size={20} />
+					</span>
+				</a>
+			) : (
+				<Link
+					prefetch="intent"
+					className={clsx(
+						'block whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none underlined',
+						{
+							'text-team-current active': isSelected,
+							'text-secondary': !isSelected,
+						},
+					)}
+					to={to}
+					{...rest}
+				>
+					{rest.children}
+				</Link>
+			)}
 		</li>
 	)
 }
@@ -293,7 +318,7 @@ function Navbar() {
 				<div className="flex items-center gap-8">
 					<ul className="hidden lg:flex">
 						{LINKS.map((link) => (
-							<NavLink key={link.to} to={link.to}>
+							<NavLink key={link.to} to={link.to} download={link.download}>
 								{link.name}
 							</NavLink>
 						))}

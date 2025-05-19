@@ -1439,3 +1439,17 @@ export function PasskeyIcon({
 		</svg>
 	)
 }
+
+export function DownloadIcon({ size = 24 }: { size?: number } = {}) {
+	return (
+		<svg width={size} height={size} fill="none" viewBox="0 0 24 24">
+			<path
+				stroke="currentColor"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				strokeWidth={1.5}
+				d="M12 4.75v10.5M8.75 14.25L12 17.5l3.25-3.25M4.75 15.25v2.5a2 2 0 002 2h10.5a2 2 0 002-2v-2.5"
+			/>
+		</svg>
+	)
+}
