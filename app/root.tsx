@@ -72,7 +72,7 @@ export const handle: KCDHandle & { id: string } = {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	const requestInfo = data?.requestInfo
-	const title = 'PortfoLiorenzo'
+	const title = 'Lorenzo Jacopo Avalle - Game Developer & Software Engineer'
 	const description =
 		'Welcome to my portfolio! Check out my projects and experience as a game developer and software engineer.'
 	return [
@@ -83,14 +83,15 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 		},
 		...getSocialMetas({
 			keywords:
-				'Learn React, React Workshops, Testing JavaScript Training, React Training, Learn JavaScript, Learn TypeScript',
+				'Game Development, Software Engineering, Unity, Unreal Engine, C++, C#, Python, Javascript, PHP, Web Development',
 			url: getUrl(requestInfo),
+			//image: requestInfo ? `${requestInfo.origin}/pics/socialpic.png` : '/pics/socialpic.png',
 			image: getGenericSocialImage({
-				url: getDisplayUrl(requestInfo),
-				words:
-					'Helping people make the world a better place through quality software.',
-				featuredImage: 'kentcdodds.com/illustrations/kody-flying_blue',
-			}),
+                url: getDisplayUrl(requestInfo),
+                words:
+                    'Welcome to my portfolio! Check out my projects and experience as a game developer and software engineer.',
+                featuredImage:  requestInfo ? `${requestInfo.origin}/pics/socialpic.png` : '/pics/socialpic.png',
+            }),
 			title,
 			description,
 		}),

@@ -2,8 +2,8 @@ import { getGenericSocialImage, images } from '#app/images.tsx'
 
 export function getSocialMetas({
 	url,
-	title = 'Helping people make the world a better place through quality software',
-	description = 'Make the world better with software',
+	title = 'Lorenzo Jacopo Avalle - Game Developer & Software Engineer',
+	description = 'Welcome to my portfolio! Check out my projects and experience as a game developer and software engineer.',
 	image = getGenericSocialImage({
 		url,
 		words: title,

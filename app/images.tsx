@@ -779,7 +779,7 @@ function getGenericSocialImage({
 	const primaryWordsSection = `co_white,c_fit,g_north_west,w_$gw_mul_10,h_$gh_mul_7,x_$gw_mul_1.3,y_$gh_mul_1.5,l_text:kentcdodds.com:Matter-Regular.woff2_110:${encodedWords}`
 
 	const kentProfileSection = `c_fit,g_north_west,r_max,w_$gw_mul_4,h_$gh_mul_3,x_$gw,y_$gh_mul_8,l_kent:profile-transparent`
-	const kentNameSection = `co_rgb:a9adc1,c_fit,g_north_west,w_$gw_mul_5.5,h_$gh_mul_4,x_$gw_mul_4.5,y_$gh_mul_9,l_text:kentcdodds.com:Matter-Regular.woff2_70:Kent%20C.%20Dodds`
+	const kentNameSection = `co_rgb:a9adc1,c_fit,g_north_west,w_$gw_mul_5.5,h_$gh_mul_4,x_$gw_mul_4.5,y_$gh_mul_9,l_text:kentcdodds.com:Matter-Regular.woff2_70:Lorenzo%20C.%20Avalle`
 
 	const encodedUrl = doubleEncode(emojiStrip(url))
 	const urlSection = `co_rgb:a9adc1,c_fit,g_north_west,w_$gw_mul_5.5,x_$gw_mul_4.5,y_$gh_mul_9.8,l_text:kentcdodds.com:Matter-Regular.woff2_40:${encodedUrl}`
@@ -794,7 +794,7 @@ function getGenericSocialImage({
 
 	const backgroundSection = `c_fill,w_$tw,h_$th/kentcdodds.com/social-background.png`
 	return [
-		`https://res.cloudinary.com/kentcdodds-com/image/upload`,
+		`https://portfoliorenzo.com/pics/ljacutvertical.png`,
 		vars,
 		primaryWordsSection,
 		kentProfileSection,
