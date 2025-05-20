@@ -41,6 +41,7 @@ function NavLink({
 				<a
 					href={to}
 					download
+					target="_blank"
 					className={clsx(
 						'block whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none underlined',
 						{
@@ -58,6 +59,7 @@ function NavLink({
 			) : (
 				<Link
 					prefetch="intent"
+					target={download ? "_blank" : undefined}
 					className={clsx(
 						'block whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none underlined',
 						{
@@ -209,6 +211,7 @@ function MobileMenu() {
 							className="hover:bg-secondary focus:bg-secondary text-primary border-b border-gray-200 px-5vw py-9 hover:text-team-current dark:border-gray-600"
 							key={link.to}
 							to={link.to}
+							target={link.download ? "_blank" : undefined}
 							onClick={() => {
 								popoverRef.current?.hidePopover()
 							}}
