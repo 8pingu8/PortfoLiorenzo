@@ -776,13 +776,13 @@ function getGenericSocialImage({
 	const vars = `$th_1256,$tw_2400,$gw_$tw_div_24,$gh_$th_div_12`
 
 	const encodedWords = doubleEncode(emojiStrip(words))
-	const primaryWordsSection = `co_white,c_fit,g_north_west,w_$gw_mul_10,h_$gh_mul_7,x_$gw_mul_1.3,y_$gh_mul_1.5,l_text:kentcdodds.com:Matter-Regular.woff2_110:${encodedWords}`
+	const primaryWordsSection = `co_white,c_fit,g_north_west,w_$gw_mul_10,h_$gh_mul_7,x_$gw_mul_1.3,y_$gh_mul_1.5,l_text:portfoliorenzo.vercel.app:Matter-Regular.woff2_110:${encodedWords}`
 
 	const kentProfileSection = `c_fit,g_north_west,r_max,w_$gw_mul_4,h_$gh_mul_3,x_$gw,y_$gh_mul_8,l_kent:profile-transparent`
-	const kentNameSection = `co_rgb:a9adc1,c_fit,g_north_west,w_$gw_mul_5.5,h_$gh_mul_4,x_$gw_mul_4.5,y_$gh_mul_9,l_text:kentcdodds.com:Matter-Regular.woff2_70:Lorenzo%20C.%20Avalle`
+	const kentNameSection = `co_rgb:a9adc1,c_fit,g_north_west,w_$gw_mul_5.5,h_$gh_mul_4,x_$gw_mul_4.5,y_$gh_mul_9,l_text:kentcdodds.com:Matter-Regular.woff2_70:Lorenzo%20Jacopo%20Avalle`
 
 	const encodedUrl = doubleEncode(emojiStrip(url))
-	const urlSection = `co_rgb:a9adc1,c_fit,g_north_west,w_$gw_mul_5.5,x_$gw_mul_4.5,y_$gh_mul_9.8,l_text:kentcdodds.com:Matter-Regular.woff2_40:${encodedUrl}`
+	const urlSection = `co_rgb:a9adc1,c_fit,g_north_west,w_$gw_mul_5.5,x_$gw_mul_4.5,y_$gh_mul_9.8,l_text:portfoliorenzo.vercel.app:Matter-Regular.woff2_40:${encodedUrl}`
 
 	const featuredImageIsRemote = img.startsWith('http')
 	const featuredImageCloudinaryId = featuredImageIsRemote
