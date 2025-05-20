@@ -75,26 +75,30 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	const title = 'Lorenzo Jacopo Avalle - Game Developer & Software Engineer'
 	const description =
 		'Welcome to my portfolio! Check out my projects and experience as a game developer and software engineer.'
+	const imageUrl = requestInfo ? `${requestInfo.origin}/pics/socialpic.png` : '/pics/socialpic.png'
+	
 	return [
 		{ viewport: 'width=device-width,initial-scale=1,viewport-fit=cover' },
 		{
 			'theme-color':
 				requestInfo?.userPrefs.theme === 'dark' ? '#1F2028' : '#FFF',
 		},
-		...getSocialMetas({
-			keywords:
-				'Game Development, Software Engineering, Unity, Unreal Engine, C++, C#, Python, Javascript, PHP, Web Development',
-			url: getUrl(requestInfo),
-			//image: requestInfo ? `${requestInfo.origin}/pics/socialpic.png` : '/pics/socialpic.png',
-			image: getGenericSocialImage({
-                url: getDisplayUrl(requestInfo),
-                words:
-                    'Welcome to my portfolio! Check out my projects and experience as a game developer and software engineer.',
-                featuredImage:  requestInfo ? `${requestInfo.origin}/pics/socialpic.png` : '/pics/socialpic.png',
-            }),
-			title,
-			description,
-		}),
+		// Basic metadata
+		{ title },
+		{ name: 'description', content: description },
+		// Open Graph
+		{ property: 'og:title', content: title },
+		{ property: 'og:description', content: description },
+		{ property: 'og:image', content: imageUrl },
+		{ property: 'og:type', content: 'website' },
+		{ property: 'og:url', content: getUrl(requestInfo) },
+		// Twitter
+		{ name: 'twitter:card', content: 'summary_large_image' },
+		{ name: 'twitter:title', content: title },
+		{ name: 'twitter:description', content: description },
+		{ name: 'twitter:image', content: imageUrl },
+		// Additional metadata
+		{ name: 'keywords', content: 'Game Development, Software Engineering, Unity, Unreal Engine, C++, C#, Python, Javascript, PHP, Web Development' },
 	]
 }
 

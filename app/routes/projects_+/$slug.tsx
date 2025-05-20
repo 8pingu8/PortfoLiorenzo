@@ -1,4 +1,4 @@
-import { json, LoaderFunctionArgs } from '@remix-run/node'
+import { json, LoaderFunctionArgs, type MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { getProjectBySlug, Project } from '../../utils/projects.server'
 import { Grid } from '../../components/grid'
@@ -12,12 +12,51 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (!data) {
+    return [
+      { title: 'Project Not Found' },
+      { name: 'description', content: 'The requested project could not be found.' },
+    ]
+  }
+
+  const { project } = data
+  const title = `${project.title} - Lorenzo Jacopo Avalle`
+  const description = project.description
+  const imageUrl = project.cover_image ? `${data.requestInfo.origin}${project.cover_image}` : `${data.requestInfo.origin}/pics/socialpic.png`
+  const url = `${data.requestInfo.origin}/projects/${project.slug}`
+
+  return [
+    // Basic metadata
+    { title },
+    { name: 'description', content: description },
+    // Open Graph
+    { property: 'og:title', content: title },
+    { property: 'og:description', content: description },
+    { property: 'og:image', content: imageUrl },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: url },
+    // Twitter
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: title },
+    { name: 'twitter:description', content: description },
+    { name: 'twitter:image', content: imageUrl },
+    // Additional metadata
+    { name: 'keywords', content: project.tags?.join(', ') || 'Game Development, Software Engineering' },
+  ]
+}
+
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const slug = params.slug
   if (!slug) throw new Response('Not found', { status: 404 })
   const project = await getProjectBySlug(slug, { request })
   if (!project) throw new Response('Not found', { status: 404 })
-  return json({ project })
+  
+  const requestInfo = {
+    origin: new URL(request.url).origin,
+  }
+  
+  return json({ project, requestInfo })
 }
 
 export default function ProjectDetailPage() {
