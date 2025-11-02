@@ -136,3 +136,132 @@
   date: "June 2024 - 4 days"
   emoji: "🚀"
 
+- title: "Astrogirlz"
+  slug: "astrogirlz"
+  description: "A visual novel 3D game developed during STEMdays 2025, following a girl robot protagonist stranded on an alien planet. Through exploration, dialogue, and puzzle-solving, she uncovers the mystery of what happened while helping the leading doctor back on the spaceship and return Home."
+  longDescription: |
+    # Game Concept
+    Astrogirlz is an educational game project developed during STEMdays 2025, a summer camp focused on girls' empowerment in STEM fields. The game follows a girl robot who finds herself stranded on an alien planet while the spaceship is infested with alien plants. Through exploration of the environment and past camp sites left by the leading doctor, players piece together what happened and help restore the ship's ability to travel again.
+
+    ## Key Features
+    - Story-driven 3D visual novel gameplay with extensive dialogue system
+    - Exploration mechanics across hand-crafted alien environments
+    - Multiple puzzle minigames integrated into the narrative
+    - Character-driven narrative focusing on discovery and problem-solving
+    - Complete narrative arc from mystery to resolution
+    - Educational value in both story and development process
+
+    ## Technical Implementation
+    As the project lead and mentor, I (with the help of my team) guided a team of girls through their first 3D game development experience:
+
+    - ### Core Systems
+      - **Dialogue System**: Implemented a comprehensive dialogue system to tell the story and reveal the mystery
+      - **Exploration System**: Built interactive 3D environments allowing players to discover past camp sites and environmental storytelling
+      - **Puzzle Framework**: Created a modular system for various puzzle minigames integrated into the exploration through UI
+      - **3D Environment Interaction**: Developed interaction systems for examining objects and locations
+
+    - ### Technical Stack
+      - **Engine**: Unreal Engine 5
+      - **Language**: C++ and Blueprints
+      - **Key Features**: 3D graphics, Visual novel elements, Environmental storytelling, Puzzle mechanics, Dialogue system, Scene management
+
+    ## Educational Leadership
+    This project was particularly special as it combined 3D game development with educational mentorship:
+
+    - ### Teaching Highlights
+      - Introduced complete beginners to 3D game development and Unreal Engine 5
+      - Guided students through the entire development process from concept to completion
+      - Ensured each team member could contribute meaningfully to the project
+      - Balanced learning objectives with project completion goals
+      - Supported students in creating all alien environments themselves, which stands as the project's biggest achievement
+
+    - ### Project Management
+      - Structured the development timeline effectively
+      - Divided tasks based on individual interests and abilities
+      - Maintained team motivation and engagement throughout
+      - Successfully delivered a complete game within the time constraint
+      - Facilitated the creation of all alien environments by the students themselves
+
+    The project's success is measured not just in the final product, but in the educational impact and confidence built in the participating students. The fact that the girls not only developed the game features and functionalities themselves, all while writing a coherent story, but also created all the alien environments by themselves represents a remarkable achievement, demonstrating both creative expression and technical learning. We achieved our goal of creating a complete 3D visual novel game while ensuring every team member learned and contributed to the final product.
+  cover_image: "/pics/astrogirlz/Astrogirlz1.png"
+  images:
+    - "/pics/astrogirlz/Astrogirlz1.png"
+    - "/pics/astrogirlz/AstrogirlzGif1.gif"
+    - "/pics/astrogirlz/Astrogirlz2.pngf"
+    - "/pics/astrogirlz/Astrogirlz3.png"
+    - "/pics/astrogirlz/Astrogirlz4.png"
+  video: "/pics/astrogirlz/AstrogirlzClip2.mp4"
+  tags: ["Unreal Engine 5", "C++", "3D Game", "Visual Novel", "Educational", "Story-Driven", "Team Lead", "Mentorship", "STEMdays 2025"]
+#  links:
+#    itch: "https://yourbro.itch.io/astrogirlz"
+#    github: "https://github.com/yourbro/astrogirlz"
+  model: "/models/Mushroom.glb"
+  date: "June 2025 - 4 days"
+  emoji: "🤖"
+
+- title: "A Tale from GrayHallow"
+  slug: "a-tale-from-grayhallow"
+  description: "A cozy, spooky story-driven 3D game developed during the Game Dev TV Halloween Game Jam. Follow Bob, a child struggling to make friends in his new village, as he discovers a magic book that awakens friendly spirits and mischievous monsters, leading to an unforgettable Halloween night of friendship and discovery."
+  longDescription: |
+    # Game Concept
+    A Tale from GrayHallow is a cozy, spooky adventure game developed during the Game Dev TV Halloween Game Jam - my first game jam experience! The game tells the heartwarming story of Bob, a child recently transferred to the village of GrayHallow who struggles with making friends and spends most of his time in the library. On Halloween, Bob discovers a magic book containing a ritual "for the loneliest" and decides to perform it in the village graveyard. The ritual awakens both friendly spirits and mischievous monsters, setting Bob on a journey to befriend the spirits, recover their stolen belongings from the pranking monsters, and finally find the companionship he's been seeking.
+
+    ## Key Features
+    - Cozy, spooky visual aesthetic with beautiful night-time village and graveyard environments
+    - Complete narrative exploring the town, its characters, and Bob's personal growth
+    - The Pipizap: A unique Halloween-themed rock-paper-scissors combat system with funny custom rules
+    - Exploration mechanics allowing players to discover GrayHallow and interact with its inhabitants
+    - Character-driven story focusing on friendship, loneliness, and finding your place
+    - Rich atmospheric environments emphasizing visual storytelling
+
+    ## Technical Implementation
+    As the project lead and programmer, I guided a team of 6 people through our first game development and game jam experience, working together remotely:
+
+    - ### Core Systems
+      - **Pipizap Combat System**: Developed a custom rock-paper-scissors combat system with Halloween-themed mechanics and special rules that make each encounter unique and engaging
+      - **Dialogue System**: Implemented a dialogue system to tell Bob's story and facilitate interactions with spirits and townspeople
+      - **Exploration System**: Built interactive 3D environments for exploring GrayHallow village and the graveyard
+      - **Visual Atmosphere**: Focused heavily on creating a cozy, spooky aesthetic with carefully crafted lighting and environmental design for the night-time setting
+
+    - ### Technical Stack
+      - **Engine**: Unreal Engine 5
+      - **Language**: C++ and Blueprints
+      - **Key Features**: 3D graphics, Custom combat mechanics, Dialogue system, Environmental storytelling, Atmospheric lighting
+
+    ## Game Jam Leadership
+    This project presented unique challenges as my first game jam experience, leading a team where everyone was new to game development:
+
+    - ### Team Structure
+      - Coordinated a diverse team of 6 members with dedicated roles: story, sound, graphics, and programming
+      - Managed collaboration across different skill levels, all experiencing their first game development project
+      - Balanced creative contributions while maintaining project scope for the jam deadline
+
+    - ### Development Challenges
+      - Worked within the tight constraints of a game jam timeline
+      - Navigated scheduling difficulties as team members had other commitments, resulting in limited available time
+      - Provided guidance and leadership despite being the only team member with game development experience
+      - Focused heavily on visual polish and atmosphere, dedicating significant time to creating the cozy, spooky aesthetic that became one of the game's strongest features
+
+    - ### Project Management
+      - Structured tasks and managed workflow to ensure progress despite time constraints
+      - Prioritized visual development and narrative completion to deliver a cohesive experience
+      - Maintained team motivation and ensured everyone could contribute meaningfully despite the challenges
+      - Successfully delivered a complete game that met the jam deadline
+
+    The project's success demonstrates adaptability in high-pressure situations and effective leadership in challenging team dynamics. Despite everyone being new to game development and facing significant time constraints, we created a complete, visually striking game with a heartwarming story that showcases the power of collaboration and creative problem-solving.
+  cover_image: "/pics/grayhallow/GrayHallow1.png"
+  images:
+    - "/pics/grayhallow/GrayHallow1.png"
+    - "/pics/grayhallow/GrayHallow2.png"
+    - "/pics/grayhallow/GrayHallow3.png"
+    - "/pics/grayhallow/GrayHallow4.png"
+    - "/pics/grayhallow/GrayHallow5.png"
+  video: "/pics/grayhallow/GrayHallowClip.mp4"
+  tags: ["Unreal Engine 5", "C++", "3D Game", "Story-Driven", "Game Jam", "Team Lead", "Game Dev TV", "Halloween"]
+#  links:
+#    itch: "https://yourbro.itch.io/a-tale-from-grayhallow"
+#    github: "https://github.com/yourbro/a-tale-from-grayhallow"
+  model: "/models/oldtv.glb"
+  date: "October 2025 - 10 days"
+  emoji: "🎃"
+
