@@ -186,8 +186,8 @@
   cover_image: "/pics/astrogirlz/Astrogirlz1.png"
   images:
     - "/pics/astrogirlz/Astrogirlz1.png"
-    - "/pics/astrogirlz/AstrogirlzGif1.gif"
-    - "/pics/astrogirlz/Astrogirlz2.pngf"
+    - "/pics/astrogirlz/AstrogirlzGif1.mp4"
+    - "/pics/astrogirlz/Astrogirlz2.png"
     - "/pics/astrogirlz/Astrogirlz3.png"
     - "/pics/astrogirlz/Astrogirlz4.png"
   video: "/pics/astrogirlz/AstrogirlzClip2.mp4"
@@ -209,6 +209,7 @@
     ## Key Features
     - Cozy, spooky visual aesthetic with beautiful night-time village and graveyard environments
     - Complete narrative exploring the town, its characters, and Bob's personal growth
+    - Unique storytelling mechanics: The story is told through comics displayed on an old TV, creating a very suggestive and interesting narrative experience
     - The Pipizap: A unique Halloween-themed rock-paper-scissors combat system with funny custom rules
     - Exploration mechanics allowing players to discover GrayHallow and interact with its inhabitants
     - Character-driven story focusing on friendship, loneliness, and finding your place
@@ -219,6 +220,7 @@
 
     - ### Core Systems
       - **Pipizap Combat System**: Developed a custom rock-paper-scissors combat system with Halloween-themed mechanics and special rules that make each encounter unique and engaging
+      - **Comic TV Storytelling System**: Implemented a unique storytelling mechanic where narrative sequences are presented as comics displayed on an old TV screen, creating a very suggestive and visually interesting way to tell the story
       - **Dialogue System**: Implemented a dialogue system to tell Bob's story and facilitate interactions with spirits and townspeople
       - **Exploration System**: Built interactive 3D environments for exploring GrayHallow village and the graveyard
       - **Visual Atmosphere**: Focused heavily on creating a cozy, spooky aesthetic with carefully crafted lighting and environmental design for the night-time setting
@@ -226,7 +228,7 @@
     - ### Technical Stack
       - **Engine**: Unreal Engine 5
       - **Language**: C++ and Blueprints
-      - **Key Features**: 3D graphics, Custom combat mechanics, Dialogue system, Environmental storytelling, Atmospheric lighting
+      - **Key Features**: 3D graphics, Custom combat mechanics, Comic TV storytelling system, Dialogue system, Environmental storytelling, Atmospheric lighting
 
     ## Game Jam Leadership
     This project presented unique challenges as my first game jam experience, leading a team where everyone was new to game development:
