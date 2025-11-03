@@ -195,7 +195,7 @@
 #  links:
 #    itch: "https://yourbro.itch.io/astrogirlz"
 #    github: "https://github.com/yourbro/astrogirlz"
-  model: "/models/Mushroom.glb"
+  model: "/models/mushroom.glb"
   date: "June 2025 - 4 days"
   emoji: "🤖"
 
