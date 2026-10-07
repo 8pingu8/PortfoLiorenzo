@@ -7,6 +7,15 @@ import { globSync } from 'glob'
 const pkg = fsExtra.readJsonSync(path.join(process.cwd(), 'package.json'))
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+/** esbuild needs e.g. `node24`, not npm-style ranges like `24.x`. */
+function esbuildNodeTarget(nodeEngine: string): string {
+	const major = String(nodeEngine).match(/(\d+)/)?.[1]
+	if (!major) {
+		throw new Error(`Invalid engines.node for esbuild: ${nodeEngine}`)
+	}
+	return `node${major}`
+}
+
 const globsafe = (s: string) => s.replace(/\\/g, '/')
 const here = (...s: Array<string>) => globsafe(path.join(__dirname, ...s))
 
@@ -41,7 +50,7 @@ esbuild
 	.build({
 		entryPoints: entries,
 		outdir,
-		target: [`node${pkg.engines.node}`],
+		target: [esbuildNodeTarget(pkg.engines.node)],
 		platform: 'node',
 		sourcemap: true,
 		format: 'esm',
