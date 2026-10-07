@@ -11,7 +11,7 @@ function AboutSection() {
 			<H4 as="div">Lorenzo Jacopo Avalle</H4>
 
 			<p className="text-secondary mt-6 max-w-md text-2xl">
-				Game Developer & Creative Technologist
+				Full Stack & Flutter Developer — Mobile, Web & Game - Creative Technologist
 			</p>
 
 			<div className="text-secondary mt-6 flex items-center gap-4">
@@ -22,10 +22,10 @@ function AboutSection() {
 					<LinkedInIcon size={32} />
 				</IconLink>
 				<AnchorOrLink
-					href="mailto:lorenzo.avalle@gmail.com"
+					href="mailto:lja@lamatech.dev"
 					className="text-secondary text-lg hover:text-team-current focus:text-team-current focus:outline-none"
 				>
-					lorenzo.avalle@gmail.com
+					lja@lamatech.dev
 				</AnchorOrLink>
 			</div>
 		</div>

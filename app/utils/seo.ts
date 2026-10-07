@@ -2,8 +2,9 @@ import { getGenericSocialImage, images } from '#app/images.tsx'
 
 export function getSocialMetas({
 	url,
-	title = 'Lorenzo Jacopo Avalle - Game Developer & Software Engineer',
-	description = 'Welcome to my portfolio! Check out my projects and experience as a game developer and software engineer.',
+	title = 'Lorenzo Jacopo Avalle - Full Stack & Flutter Developer',
+	description =
+		'Portfolio of Lorenzo Jacopo Avalle — Flutter, full stack web & mobile, Industry 4.0, and Unreal Engine game projects.',
 	image = getGenericSocialImage({
 		url,
 		words: title,

@@ -16,13 +16,13 @@ import { TeamCircle } from './team-circle.tsx'
 const LINKS = [
 	{ name: 'Bio', to: '/' },
 	{ name: 'Portfolio', to: '/projects' },
-	{ name: 'CV', to: '/cv/CV_LJA_2025.pdf', download: true },
+	{ name: 'CV', to: '/cv/CV_LJA_2026.pdf', download: true },
 ]
 
 const MOBILE_LINKS = [
 	{ name: 'Bio', to: '/' },
 	{ name: 'Portfolio', to: '/projects' },
-	{ name: 'CV', to: '/cv/CV_LJA_2025.pdf', download: true },
+	{ name: 'CV', to: '/cv/CV_LJA_2026.pdf', download: true },
 ]
 
 function NavLink({

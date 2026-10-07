@@ -72,9 +72,9 @@ export const handle: KCDHandle & { id: string } = {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	const requestInfo = data?.requestInfo
-	const title = 'Lorenzo Jacopo Avalle - Game Developer & Software Engineer'
+	const title = 'Lorenzo Jacopo Avalle - Full Stack & Flutter Developer'
 	const description =
-		'Welcome to my portfolio! Check out my projects and experience as a game developer and software engineer.'
+		'Portfolio of Lorenzo Jacopo Avalle — Flutter, full stack web & mobile, Industry 4.0, and Unreal Engine game projects.'
 	const imageUrl = requestInfo ? `${requestInfo.origin}/pics/socialpic.png` : '/pics/socialpic.png'
 	
 	return [

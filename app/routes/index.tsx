@@ -9,53 +9,87 @@ import { useState } from 'react'
 // Dummy data - replace with real data later
 const timelineData = [
 	{
+		year: 'Jan 2026 – ongoing',
+		title: 'Full Stack Developer — Flutter',
+		company: 'Nexion',
+		description:
+			'International manufacturer of tyre and wheel service equipment. Building WeNext, Nexion’s cloud platform for connected Industry 4.0 equipment—from a single Flutter codebase on web and mobile. Own entire product sections with BLoC architecture; work on a C++ gateway with secure TLS (OpenSSL); contribute to planning and steady team progress.',
+		icon: '🏭',
+	},
+	{
 		year: '2024-2025',
-		title: 'Game Developer student',
-		company: 'DBGA Academy',
-		description: 'Started my journey in game development, learning the ropes of the industry attending a Game Programming Master (UE5) in a specialized academy: from basics to advanced, focusing on UE 5 and on actual development experience.',
-		icon: '🎮'
+		title: 'Master in Game Programming',
+		company: 'Digital Bros Game Academy (online)',
+		description: 'Hands-on game development focused on Unreal Engine 5.',
+		icon: '🎮',
 	},
 	{
 		year: '2021-2024',
-		title: 'QA Engineer & Web Developer',
-		company: 'Fluentify and Voxy',
-		description: 'Responsible for bug tracking and resolution, coordinating tasks and deadlines for the team, and Gained QA engineering experience developing reliable deployment policies based on automated pre and post release QA checks. Worked extensively with data and management and coordination through Jira.',
-		icon: '💻'
+		title: 'QA Engineer',
+		company: 'Voxy (previously Fluentify UK Ltd)',
+		description:
+			'At an international online language-learning company: bug tracking and resolution, Agile coordination in Jira, automation to improve reliability and performance on a large codebase, BigQuery reporting and data warehouse work, and deployment policies with automated pre- and post-release QA. Also worked with AWS for cloud-based solutions.',
+		icon: '🔧',
+	},
+	{
+		year: '2021-2022',
+		title: 'Mobile Developer — Flutter',
+		company: 'Consorzio Copernico SCS',
+		description:
+			'From-scratch cross-platform surplus-food management for Caritas (iOS, Android, and web) in Flutter, with a RESTful API on a LAMP stack. Published and adopted by many local charities and shops.',
+		icon: '📱',
 	},
 	{
 		year: '2017-ongoing',
-		title: 'Software Developer - web and mobile',
-		company: 'Various companies and freelance projects',
-		description: 'Developed multiple projects in different languages and frameworks, gaining experience in software development and project management.',
-		icon: '💻'
+		title: 'Full Stack Web Developer',
+		company: 'Acris SRL',
+		description:
+			'Italian fintech specializing in credit risk assessment: full-scale IT systems covering all steps of the client business, data-driven financial decision-making, and data analysis, visualization, and management.',
+		icon: '💻',
 	},
 	{
-		year: '2020',
-		title: 'Computer-Science Engineer',
+		year: '2015-2020',
+		title: 'Bachelor’s in Computer Engineering',
 		company: 'Politecnico di Torino',
-		description: 'Graduated as a Computer-Science Engineer, beginning my journey in software development',
-		icon: '🚀'
-	}
+		description:
+			'Graduated while working as a freelance developer—balancing studies with real projects helped me adapt quickly to new stacks and ownership of delivery.',
+		icon: '🚀',
+	},
 ]
 
 // Updated skills data with detailed information
 const skills = [
-	{ 
-		name: 'Project Management', 
-		level: 100, 
+	{
+		name: 'Flutter & Mobile Development',
+		level: 100,
+		icon: '📱',
+		description:
+			'Flutter specialist for web, iOS, and Android—BLoC architecture, REST integration, and owning full product development.',
+		tools: ['Flutter', 'Dart', 'BLoC', 'RESTful APIs', 'OpenSSL', 'iOS', 'Android', 'Web'],
+		highlights: [
+			'WeNext portal — web & mobile from one Flutter codebase',
+			'BLoC-driven UI and complex flow ownership',
+			'Published Caritas app used by charities nationwide',
+			'C++ IoT gateway work with secure TLS',
+		],
+	},
+	{
+		name: 'Project Management',
+		level: 100,
 		icon: '📊',
-		description: 'Extensive experience in project management and Agile methodologies using Jira and lighter tools like Trello. Led multiple teams across different projects, from game development to web applications.',
+		description:
+			'Extensive experience in project management and Agile methodologies using Jira and lighter tools like Trello. Led and coordinated teams on game projects, enterprise web systems, and Flutter product delivery—including planning, deadlines, and cross-functional communication at Nexion and on international products.',
 		tools: ['Jira', 'Trello', 'Git', 'Agile Methodologies'],
 		highlights: [
 			'Team leadership and coordination',
 			'Agile project management',
 			'Task tracking and deadline management',
-			'Resource allocation and optimization'
-		]
+			'Resource allocation and peer planning',
+		],
 	},
-	{ 
-		name: 'Game Development', 
-		level: 90, 
+	{
+		name: 'Game Development',
+		level: 90,
 		icon: '🎮',
 		description: 'Specialized in game development with a focus on Unreal Engine 5. Experience with multiple game engines and frameworks.',
 		tools: ['Unreal Engine 5', 'Unity', 'Godot', 'C++'],
@@ -83,33 +117,22 @@ const skills = [
 		name: 'Full Stack Development', 
 		level: 100, 
 		icon: '💻',
-		description: 'Comprehensive experience in full stack development, from frontend design to backend implementation. Worked with various technologies and frameworks.',
-		tools: ['PHP', 'JavaScript+main javascript frameworks', 'Python', 'SQL', 'AWS', 'RESTful APIs'],
+		description:
+			'Full stack delivery across web and APIs—from frontend architecture to backend implementation, data layers, and cloud integration.',
+		tools: ['PHP', 'JavaScript', 'Python', 'SQL', 'AWS', 'RESTful APIs', 'LAMP'],
 		highlights: [
+			'REST API design and integration',
 			'Frontend and backend development',
 			'Database design and optimization',
 			'Cloud services integration',
-			'API development and integration'
 		]
 	},
-	{ 
-		name: 'Mobile Development', 
-		level: 80, 
-		icon: '📱',
-		description: 'Specialized in cross-platform mobile development using Flutter. Experience in developing and deploying applications for iOS and Android.',
-		tools: ['Flutter', 'Dart', 'iOS', 'Android'],
-		highlights: [
-			'Cross-platform development',
-			'Native integration',
-			'UI/UX implementation',
-			'App store deployment'
-		]
-	},
-	{ 
+	{
 		name: 'QA & Automation', 
 		level: 90, 
 		icon: '🔧',
-		description: 'Expert in QA strategy definition and implementation. Developed automated testing solutions and deployment policies.',
+		description:
+			'QA strategy, automated pre/post-release checks, and reliable deployment policies—plus internal automation on large production codebases.',
 		tools: ['Automated Testing', 'CI/CD', 'AWS', 'BigQuery'],
 		highlights: [
 			'Test automation',
@@ -137,7 +160,7 @@ const funFacts = [
 	'Fablab Tutor, I love teaching',
 	'Can cook a fantastic pizza',
 	'Monster Energy enthusiast',
-	'Speak 3 languages',
+	'Speak 4 languages (IT, EN, ES, CN)',
 	'Pro Clarinet player',
 	'Always with a new project in my mind'
 ]
@@ -230,18 +253,21 @@ export default function Index() {
 						<div className="flex flex-col gap-4 @xs:gap-6 @sm:gap-8 @2xl:w-[75%]">
 							<div>
 								<h1 className="text-3xl/7 font-semibold text-balance tracking-tight text-gray-800 @sm:text-4xl/7 @2xl/grid:text-3xl/7 @3xl/grid:text-4xl/7 @6xl/grid:text-5xl/9 dark:font-medium dark:tracking-normal dark:text-gray-200 mb-4">
-									Game Developer & Creative Technologist
+									Full Stack & Flutter Developer — Mobile, Web & Game - Creative Technologist
 								</h1>
 								<p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-									I am a passionate developer and tech lab manager with a broad range of experience, from web and mobile development 
-									to video game design and data management. I'm leading a small tech lab focused on introducing youngs to Open Source technologies, 
-									gaining a diverse skill set in managing projects and motivate teams. <br></br><br></br>I have a strong track record of delivering results on 
-									key projects for international companies (Italy, England, Brazil, USA) and thrive on tackling new challenges.
-
-									<br></br><br></br>I am now specializing in Game Development in Unreal Engine 5, with a focus on creating immersive and engaging gaming experiences.
-									<br></br>I have a wide range of skills in game design, 3D modeling and other fields, in addition to my knowledge in programming, and I am always eager to learn new things.
-
-									<br></br><br></br>I'm also a professional Clarinet player and love music and audio design, especially in the context of video games.
+									Full stack developer specialized in Flutter, with hands-on experience across web, mobile, data, and game development. 
+									At Nexion I work on web and mobile, owning whole product sections and enforcing BLoC architecture on WeNext, 
+									Nexion’s cloud Industry 4.0 portal for connected equipment.
+									<br />
+									<br />
+									Over eight years I have delivered for international companies (Italy, England, Brazil, USA), adapting quickly to new stacks. I
+									shipped a published Flutter app for Caritas surplus-food management (iOS, Android, web + LAMP backend) now used by charities and
+									shops across Italy.
+									<br />
+									<br />
+									I also run a small tech lab introducing students to open source, and I keep building games in Unreal Engine 5 (see my portfolio).
+									I am a professional clarinetist and love music and audio.
 								</p>
 							</div>
 						</div>
@@ -277,41 +303,36 @@ export default function Index() {
 						<p className="text-lg text-gray-600 dark:text-gray-400 italic">Click on any skill to learn more about my experience!</p>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
-						{/* First skill - larger and centered */}
-						{(() => {
-							const firstSkill = skills[0]
-							if (!firstSkill) return null
-							
-							return (
+						<div className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto w-full">
+							{skills.slice(0, 2).map((skill, index) => (
 								<motion.div
-									key={firstSkill.name}
+									key={skill.name}
 									initial={{ opacity: 0, y: 20 }}
 									whileInView={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5 }}
+									transition={{ duration: 0.5, delay: index * 0.1 }}
 									whileHover={{ scale: 1.05 }}
-									onClick={() => setSelectedSkill(firstSkill)}
-									onHoverStart={() => setHoveredSkill(firstSkill.name)}
+									onClick={() => setSelectedSkill(skill)}
+									onHoverStart={() => setHoveredSkill(skill.name)}
 									onHoverEnd={() => setHoveredSkill(null)}
-									className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-2xl p-8 ring-2 ring-inset ring-gray-200/50 dark:ring-gray-700/50 shadow-lg md:col-span-2 lg:col-span-3 max-w-2xl mx-auto cursor-pointer"
+									className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-2xl p-8 ring-2 ring-inset ring-gray-200/50 dark:ring-gray-700/50 shadow-lg cursor-pointer"
 								>
 									<div className="flex items-center gap-6 mb-6">
-										<span className="text-4xl">{firstSkill.icon}</span>
-										<h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">{firstSkill.name}</h3>
+										<span className="text-4xl">{skill.icon}</span>
+										<h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">{skill.name}</h3>
 									</div>
 									<div className="w-full bg-gray-200/50 dark:bg-gray-700/50 rounded-full h-3">
 										<motion.div
 											className="bg-blue-500 h-3 rounded-full"
 											initial={{ width: 0 }}
-											whileInView={{ width: `${firstSkill.level}%` }}
-											transition={{ duration: 1 }}
+											whileInView={{ width: `${skill.level}%` }}
+											transition={{ duration: 1, delay: index * 0.1 }}
 										/>
 									</div>
 								</motion.div>
-							)
-						})()}
+							))}
+						</div>
 
-						{/* Rest of the skills */}
-						{skills.slice(1).map((skill, index) => (
+						{skills.slice(2).map((skill, index) => (
 							<motion.div
 								key={skill.name}
 								initial={{ opacity: 0, y: 20 }}
