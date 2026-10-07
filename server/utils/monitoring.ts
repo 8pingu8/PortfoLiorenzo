@@ -1,4 +1,3 @@
-import { nodeProfilingIntegration } from '@sentry/profiling-node'
 import Sentry from '@sentry/remix'
 
 export function init() {
@@ -24,10 +23,7 @@ export function init() {
 			/\/_content\/blog\.json/,
 			/\/_content\/blog-rss\.xml/,
 		],
-		integrations: [
-			Sentry.httpIntegration(),
-			nodeProfilingIntegration(),
-		],
+		integrations: [Sentry.httpIntegration()],
 		tracesSampler(samplingContext) {
 			if (samplingContext.request?.url) {
 				const url = new URL(samplingContext.request.url)
