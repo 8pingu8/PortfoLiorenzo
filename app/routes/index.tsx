@@ -253,7 +253,7 @@ export default function Index() {
 						<div className="flex flex-col gap-4 @xs:gap-6 @sm:gap-8 @2xl:w-[75%]">
 							<div>
 								<h1 className="text-3xl/7 font-semibold text-balance tracking-tight text-gray-800 @sm:text-4xl/7 @2xl/grid:text-3xl/7 @3xl/grid:text-4xl/7 @6xl/grid:text-5xl/9 dark:font-medium dark:tracking-normal dark:text-gray-200 mb-4">
-									Full Stack & Flutter Developer — Mobile, Web & Game - Creative Technologist
+									Full Stack & Flutter Developer <br></br>— Mobile, Web & Game <br></br>— Creative Technologist
 								</h1>
 								<p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
 									Full stack developer specialized in Flutter, with hands-on experience across web, mobile, data, and game development. 
