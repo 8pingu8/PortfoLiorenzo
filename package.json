@@ -2,7 +2,7 @@
   "name": "lja-portfolio",
   "version": "1.0.0",
   "engines": {
-    "node": "20",
+    "node": "24.x",
     "npm": ">=10"
   },
   "imports": {
